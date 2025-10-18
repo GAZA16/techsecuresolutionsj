@@ -1,41 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pagar con Tarjeta | TechSecure Solutions</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago | TechSecure Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script> <!-- Reemplaza 'sb' por tu Client-ID real de PayPal -->
+  <style>
+    section {
+      max-width: 600px;
+      margin: 2em auto;
+      background: #fff;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #002b5c;
+    }
+    .qr-container {
+      text-align: center;
+      margin-top: 2em;
+    }
+    .qr-container img {
+      max-width: 250px;
+      margin: 1em auto;
+      display: block;
+    }
+    .qr-container p {
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Pagar con Tarjeta</h1>
-  </header>
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="servicios.html">Servicios</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
+<header>
+  <img src="img/LlogoTechSecureSolutionsWeb.gif" alt="Logo TechSecure Solutions" class="logo">
+  <h1>TechSecure Solutions</h1>
+  <p>Realiza tu pago seguro</p>
+</header>
 
-  <section>
-    <h2>Realizar Pago Seguro</h2>
-    <p>Selecciona el monto a pagar y haz clic en el botón para completar la transacción de forma segura.</p>
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="servicios.html">Servicios</a>
+  <a href="quienes-somos.html">Quiénes Somos</a>
+  <a href="mision-vision.html">Misión y Visión</a>
+  <a href="contacto.html">Contacto</a>
+</nav>
 
-    <!-- PayPal Button -->
-    <div id="paypal-button-container" style="max-width: 400px; margin: 0 auto;"></div>
-  </section>
+<section>
+  <h2>Resumen del Producto</h2>
+  <p><strong>Producto:</strong> <span id="resumen-producto">Cargando...</span></p>
+  <p><strong>Precio:</strong> $<span id="resumen-precio">0.00</span></p>
 
-  <footer>
-    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
-  </footer>
+  <h2>Pago con PayPal</h2>
+  <div id="paypal-button-container"></div>
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID_AQUI&currency=USD"></script>
+  <div class="qr-container">
+    <h2>Pago Alternativo (QR)</h2>
+    <p>Escanea el siguiente código QR para pagar con Tigo Money o Bancoagrícola</p>
+    <img src="img/qr-pago-tigo.png" alt="Código QR Tigo Money / Bancoagrícola">
+    <p><strong>Nombre:</strong> TechSecure Solutions</p>
+    <p><strong>Teléfono asociado:</strong> +503 7805 1905</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+</footer>
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const producto = decodeURIComponent(urlParams.get("producto") || "Servicio TechSecure");
-  const precio = urlParams.get("precio") || "25.00";
+  const precio = parseFloat(urlParams.get("precio") || "25.00").toFixed(2);
+
+  document.getElementById("resumen-producto").textContent = producto;
+  document.getElementById("resumen-precio").textContent = precio;
 
   paypal.Buttons({
     createOrder: function(data, actions) {
@@ -51,13 +93,13 @@
     },
     onApprove: function(data, actions) {
       return actions.order.capture().then(function(details) {
-        alert('✅ Pago realizado por ' + details.payer.name.given_name);
+        alert('✅ Pago completado por ' + details.payer.name.given_name);
         window.location.href = "gracias.html";
       });
     },
     onError: function(err) {
-      console.error(err);
-      alert('❌ Error en el pago.');
+      console.error('Error en el pago:', err);
+      alert('❌ Ocurrió un error al procesar el pago.');
     }
   }).render('#paypal-button-container');
 </script>
