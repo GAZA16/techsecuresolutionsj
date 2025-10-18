@@ -23,10 +23,11 @@ header {
 }
 
 header .logo {
-  width: 380px;
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 450px; /* tamaño máximo del logo */
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 header h1 {
@@ -240,4 +241,12 @@ footer a:hover {
   .card img {
     height: 180px;
   }
+
+  /* -------------------- AJUSTAR TAMAÑO EN MOVIL -------------------- */
+  @media(max-width: 768px) {
+  .logo {
+    max-width: 250px; /* tamaño más adecuado para móviles */
+  }
+}
+
 }
