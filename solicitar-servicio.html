@@ -98,4 +98,20 @@
       <!-- Configuración de Formspree -->
       <input type="hidden" name="_next" value="https://gaza16.github.io/techsecuresolutions/gracias.html">
       <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value=_
+      <input type="hidden" name="_subject" value="Nueva solicitud de servicio - TechSecure Solutions">
+
+      <button type="submit">Enviar solicitud</button>
+    </form>
+  </section>
+
+  <script>
+    // Captura el servicio desde la URL (?servicio=xxx)
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("servicio").value = params.get("servicio") || "";
+  </script>
+
+  <footer>
+    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
