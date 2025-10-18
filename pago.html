@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagar con Tarjeta | TechSecure Solutions</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Pagar con Tarjeta</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+
+  <section>
+    <h2>Realizar Pago Seguro</h2>
+    <p>Selecciona el monto a pagar y haz clic en el botón para completar la transacción de forma segura.</p>
+
+    <!-- PayPal Button -->
+    <div id="paypal-button-container" style="max-width: 400px; margin: 0 auto;"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID_AQUI&currency=USD"></script>
+
+  <script>
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'blue',
+        layout: 'vertical',
+        label: 'paypal',
+      },
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: "Pago por servicios TechSecure Solutions",
+            amount: {
+              currency_code: "USD",
+              value: "25.00" // Puedes cambiar esto dinámicamente si deseas
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('✅ Pago realizado por ' + details.payer.name.given_name);
+          window.location.href = "gracias.html";
+        });
+      },
+      onError: function(err) {
+        console.error(err);
+        alert('❌ Ocurrió un error durante el pago.');
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>
