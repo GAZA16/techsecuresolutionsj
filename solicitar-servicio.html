@@ -80,8 +80,12 @@
   <section>
     <h2>Formulario de Solicitud</h2>
     <form action="https://formspree.io/f/xzzjowvk" method="POST">
-      <label for="servicio">Servicio</label>
-      <input type="text" id="servicio" name="servicio" readonly>
+      <!-- esto agregue -->     
+  <label for="producto">Producto o servicio</label>
+<input type="text" id="producto" name="producto" readonly>
+
+<label for="precio">Precio estimado (USD)</label>
+<input type="text" id="precio" name="precio" readonly>
 
       <label for="nombre">Nombre completo</label>
       <input type="text" id="nombre" name="nombre" required>
@@ -94,6 +98,7 @@
 
       <label for="detalle">Detalles adicionales</label>
       <textarea id="detalle" name="detalle" rows="4" placeholder="Describe brevemente tus necesidades..."></textarea>
+
 
       <!-- Configuración de Formspree -->
       <input type="hidden" name="_next" value="https://gaza16.github.io/techsecuresolutions/gracias.html">
@@ -116,8 +121,31 @@
     document.getElementById("servicio").value = params.get("servicio") || "";
   </script>
 
-  <footer>
-    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
-  </footer>
+<footer>
+  <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const producto = decodeURIComponent(params.get("producto") || params.get("servicio") || "");
+  const precio = params.get("precio") || "";
+
+  if (producto) document.getElementById("producto").value = producto;
+  if (precio) document.getElementById("precio").value = `$${precio}`;
+
+  // Agrega botón de pago si hay producto y precio
+  if (producto && precio) {
+    const pagoBtn = document.createElement("a");
+    pagoBtn.href = `pago.html?producto=${encodeURIComponent(producto)}&precio=${precio}`;
+    pagoBtn.textContent = "Pagar ahora";
+    pagoBtn.className = "btn";
+    pagoBtn.style.marginTop = "1em";
+    document.querySelector("form").appendChild(pagoBtn);
+  }
+</script>
+
+</body>
+</html>
+
 </body>
 </html>
