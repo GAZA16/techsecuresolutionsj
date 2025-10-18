@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | TechSecure Solutions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form id="form">
+  <div class="field">
+    <label for="title">title</label>
+    <input type="text" name="title" id="title">
+  </div>
+  <div class="field">
+    <label for="name">name</label>
+    <input type="text" name="name" id="name">
+  </div>
+  <div class="field">
+    <label for="time">time</label>
+    <input type="text" name="time" id="time">
+  </div>
+  <div class="field">
+    <label for="message">message</label>
+    <input type="text" name="message" id="message">
+  </div>
+  <div class="field">
+    <label for="email_id">email_id</label>
+    <input type="text" name="email_id" id="email_id">
+  </div>
+  <div class="field">
+    <label for="email">email</label>
+    <input type="text" name="email" id="email">
+  </div>
+
+  <input type="submit" id="button" value="Send Email" >
+</form>
+
+
+  <header>
+    <img src="logo.png" alt="Logo TechSecure Solutions" class="logo">
+    <h1>TechSecure Solutions</h1>
+    <p>“Protegemos tu tecnología, cuidamos tu seguridad.”</p>
+  <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  emailjs.init('QAVZBFZ--ggn4Nuyd')
+</script>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="quienes-somos.html">Quiénes Somos</a>
+    <a href="mision-vision.html">Misión y Visión</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+
+  <section>
+    <h2>Bienvenido a TechSecure Solutions</h2>
+    <p>
+      Somos una empresa salvadoreña dedicada al mantenimiento, reparación y venta
+      de computadoras, laptops y cámaras de seguridad. Nuestro compromiso es ofrecer
+      soluciones tecnológicas confiables y accesibles para garantizar el correcto
+      funcionamiento de tus equipos y la seguridad de tu hogar o negocio.
+    </p>
+    <p><em>“Computadoras rápidas, hogares seguros.”</em></p>
+  </section>
+
+  <footer>
+    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
