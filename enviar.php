@@ -1,6 +1,6 @@
 <?php
 // ====== CONFIGURA AQUÍ TU CORREO ======
-$destino = "techsecuresolutions25@gmail.com"; // 🔹 Cámbialo por el correo donde quieres recibir las solicitudes
+$destino = "techsecuresolutions25@gmail.com"; // 📩 Cámbialo por tu correo real
 
 // ====== RECIBE LOS DATOS DEL FORMULARIO ======
 $servicio = $_POST["servicio"];
@@ -28,6 +28,6 @@ if (mail($destino, $asunto, $contenido, $headers)) {
     header("Location: gracias.html"); // Redirige a una página de agradecimiento
     exit;
 } else {
-    echo "Error: no se pudo enviar el mensaje. Verifica tu servidor PHP o correo.";
+    echo "⚠️ Error: no se pudo enviar el mensaje. Verifica tu servidor PHP o la configuración de correo.";
 }
 ?>

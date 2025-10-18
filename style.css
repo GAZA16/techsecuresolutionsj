@@ -6,7 +6,7 @@ body {
 }
 
 header {
-  background-color: #273c75;
+  background-color: #338fcc;
   color: white;
   text-align: center;
   padding: 50px 20px;
@@ -96,7 +96,7 @@ footer a:hover {
 }
 
 .logo {
-  width: 120px;
+  width: 320px;
   border-radius: 10px;
   margin-bottom: 20px;
 }
