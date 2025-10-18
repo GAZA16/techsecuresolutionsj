@@ -5,60 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Servicios | TechSecure Solutions</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .servicios {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      padding: 15px;
-      transition: transform 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px 10px 0 0;
-    }
-    .card h3 {
-      margin-top: 10px;
-      color: #273c75;
-    }
-    .card p {
-      font-size: 0.95em;
-      color: #333;
-      margin: 10px 0;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: #273c75;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #40739e;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- HEADER -->
   <header>
     <h1>Nuestros Servicios</h1>
     <p>Soluciones tecnológicas confiables para hogares y empresas</p>
   </header>
 
+  <!-- NAV -->
   <nav>
     <a href="index.html">Inicio</a>
     <a href="servicios.html">Servicios</a>
@@ -67,6 +24,7 @@
     <a href="contacto.html">Contacto</a>
   </nav>
 
+  <!-- SECCIÓN SERVICIOS -->
   <section>
     <h2>Soluciones que Ofrecemos</h2>
     <div class="servicios">
@@ -74,50 +32,38 @@
       <div class="card">
         <img src="img/mantenimiento.jpeg" alt="Mantenimiento y reparación de computadoras">
         <h3>Mantenimiento y Reparación</h3>
-        <p>
-          Limpieza de hardware, actualización de software y optimización de sistemas
-          para garantizar el máximo rendimiento de tus computadoras y laptops.
-        </p>
+        <p>Limpieza de hardware, actualización de software y optimización de sistemas para garantizar el máximo rendimiento de tus computadoras y laptops.</p>
         <a href="solicitar-servicio.html?servicio=mantenimiento" class="btn">Solicitar este servicio</a>
       </div>
 
       <div class="card">
         <img src="img/venta-equipos.png" alt="Venta de equipos tecnológicos">
         <h3>Venta de Equipos</h3>
-        <p>
-          Venta de computadoras, laptops, accesorios y componentes de calidad con
-          garantía y soporte técnico incluido.
-        </p>
+        <p>Venta de computadoras, laptops, accesorios y componentes de calidad con garantía y soporte técnico incluido.</p>
         <a href="solicitar-servicio.html?servicio=venta" class="btn">Solicitar este servicio</a>
       </div>
 
       <div class="card">
         <img src="img/soporte.jpg" alt="Soporte técnico preventivo y remoto">
         <h3>Soporte Técnico Preventivo y Asistencia Remota</h3>
-        <p>
-          Planes de mantenimiento mensual o anual que ayudan a prevenir fallos y a mantener tus equipos funcionando de forma óptima. 
-          Además, ofrecemos asistencia remota para resolver problemas rápidamente sin necesidad de desplazamiento.
-        </p>
+        <p>Planes de mantenimiento que previenen fallos y asistencia remota para resolver problemas sin necesidad de desplazamiento.</p>
         <a href="solicitar-servicio.html?servicio=soporte" class="btn">Solicitar este servicio</a>
       </div>
-
 
       <div class="card">
         <img src="img/camaras.jpg" alt="Cámaras de seguridad profesional">
         <h3>Cámaras de Seguridad (Venta e Instalación)</h3>
-        <p>
-          Venta, instalación y configuración de sistemas de videovigilancia de alta definición,
-          ideales para hogares, negocios y oficinas. Incluye asesoría en ubicación estratégica,
-          conexión remota y soporte post-instalación para garantizar un monitoreo eficiente y confiable.
-        </p>
+        <p>Venta, instalación y configuración de sistemas de videovigilancia de alta definición, con soporte post-instalación para un monitoreo eficiente.</p>
         <a href="solicitar-servicio.html?servicio=camaras" class="btn">Solicitar este servicio</a>
       </div>
 
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
   </footer>
+
 </body>
 </html>
