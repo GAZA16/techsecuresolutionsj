@@ -9,14 +9,14 @@
 </head>
 <body>
 
-  <!-- ====== HEADER ====== -->
+  <!-- HEADER -->
   <header>
     <img src="img/LlogoTechSecureSolutionsWeb.gif" alt="Logo TechSecure Solutions" class="logo">
     <h1>TechSecure Solutions</h1>
     <p>“Protegemos tu tecnología, cuidamos tu seguridad.”</p>
   </header>
 
-  <!-- ====== NAV ====== -->
+  <!-- NAV -->
   <nav>
     <a href="index.html">Inicio</a>
     <a href="servicios.html">Servicios</a>
@@ -25,7 +25,7 @@
     <a href="contacto.html">Contacto</a>
   </nav>
 
-  <!-- ====== SECCIÓN DE BIENVENIDA ====== -->
+  <!-- SECCIÓN DE BIENVENIDA -->
   <section style="text-align: center; max-width: 800px; margin: 0 auto;">
     <h1>Bienvenido a</h1>
     <h1 style="font-size: 3em;">TechSecure Solutions</h1>
@@ -38,11 +38,10 @@
     <p><em>“Computadoras rápidas, hogares seguros.”</em></p>
   </section>
 
-  <!-- ====== SERVICIOS DESTACADOS ====== -->
+  <!-- SERVICIOS DESTACADOS -->
   <section>
     <h2>Servicios Destacados</h2>
     <div class="servicios">
-
       <div class="card">
         <img src="img/mantenimiento.jpeg" alt="Mantenimiento y reparación de computadoras">
         <h3>Mantenimiento y Reparación</h3>
@@ -63,18 +62,12 @@
         <p>Venta e instalación de sistemas de videovigilancia de alta definición para hogares y negocios, con asesoría y soporte post-instalación.</p>
         <a href="servicios.html#camaras" class="btn">Ver detalles</a>
       </div>
-
     </div>
   </section>
 
-  <!-- ====== FOOTER ====== -->
-  <footer>
-    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
-  </footer>
-
-  <!-- ====== CHAT BOT ====== -->
+  <!-- ===== CHAT BOT ===== -->
   <div class="chatbot-container" id="chatbot">
-    <div class="chat-header">💬 TechSecure ChatBot</div>
+    <div class="chat-header">💬 TechSecure Solutions ChatBot</div>
     <div class="chat-body" id="chat-body"></div>
     <div class="chat-input">
       <input type="text" id="user-input" placeholder="Escribe tu pregunta...">
@@ -84,105 +77,93 @@
 
   <button id="chat-toggle">💬</button>
 
-  <!-- ====== SCRIPT DEL CHAT BOT ====== -->
+  <!-- ===== SCRIPT CHAT BOT ===== -->
   <script>
-    // Mostrar / ocultar chat
-    const toggleBtn = document.getElementById('chat-toggle');
-    const chatBox = document.getElementById('chatbot');
-    const chatBody = document.getElementById('chat-body');
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatbot = document.getElementById('chatbot');
     const sendBtn = document.getElementById('send-btn');
     const userInput = document.getElementById('user-input');
+    const chatBody = document.getElementById('chat-body');
 
-    toggleBtn.addEventListener('click', () => {
-      chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+    // 🔹 Mostrar chat automáticamente al cargar la página
+    window.addEventListener('load', () => {
+      chatbot.classList.add('show');
+      setTimeout(() => {
+        addMessage('bot', '👋 ¡Hola! Soy <strong>TechSecure Solutions</strong>, tu asistente virtual.');
+        addMessage('bot', '¿En qué puedo ayudarte hoy? Puedes preguntarme sobre precios, mantenimiento, venta de equipos o cámaras de seguridad.');
+      }, 600);
     });
 
-    // Función para agregar mensajes
-    function addMessage(sender, text) {
-      const msg = document.createElement('div');
-      msg.classList.add(sender);
-      msg.innerText = text;
-      chatBody.appendChild(msg);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
+    // 🔹 Mostrar / ocultar manualmente
+    chatToggle.addEventListener('click', () => {
+      chatbot.classList.toggle('show');
+    });
 
-    // Función para responder automáticamente
-    function botResponse(userText) {
-      const text = userText.toLowerCase();
-      let response = "Lo siento, no entendí tu pregunta. ¿Podrías repetirla?";
+    // 🔹 Enviar mensaje
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
 
-      if (text.includes("mantenimiento") || text.includes("reparación") || text.includes("limpieza")) {
-        response = "💻 El mantenimiento básico cuesta desde $15 e incluye limpieza interna y optimización del sistema.";
-      } else if (text.includes("computadora") || text.includes("laptop") || text.includes("venta de equipos")) {
-        response = "🖥️ Vendemos laptops HP, Dell y Lenovo desde $250 con garantía de 6 meses.";
-      } else if (text.includes("cámara") || text.includes("seguridad")) {
-        response = "📷 Ofrecemos cámaras de seguridad HD con instalación desde $50.";
-      } else if (text.includes("soporte") || text.includes("remoto") || text.includes("ayuda")) {
-        response = "🧑‍💻 Ofrecemos soporte técnico remoto. Escríbenos a soporte@techsecure.com.";
-      } else if (text.includes("precio") || text.includes("cuesta")) {
-        response = "💰 Mantenimiento desde $15, laptops desde $250, cámaras de seguridad desde $50.";
-      } else if (text.includes("horario") || text.includes("abren")) {
-        response = "🕒 Atendemos de lunes a sábado, de 8:00 a.m. a 6:00 p.m.";
-      }
-
-      addMessage('bot', response);
-    }
-
-    // Enviar mensaje
-    sendBtn.addEventListener('click', () => {
+    function sendMessage() {
       const text = userInput.value.trim();
       if (!text) return;
       addMessage('user', text);
       userInput.value = '';
-      setTimeout(() => botResponse(text), 500);
-    });
 
-    // Enviar con Enter
-    userInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendBtn.click();
-    });
-  </script>
-
-<script>
-  const chatToggle = document.getElementById('chat-toggle');
-  const chatbot = document.getElementById('chatbot');
-  const sendBtn = document.getElementById('send-btn');
-  const userInput = document.getElementById('user-input');
-  const chatBody = document.getElementById('chat-body');
-
-  chatToggle.addEventListener('click', () => {
-    chatbot.classList.toggle('show');
-  });
-
-  sendBtn.addEventListener('click', () => {
-    const text = userInput.value.trim();
-    if (!text) return;
-    addMessage('user', text);
-    userInput.value = '';
-
-    // Simulación de respuestas automáticas
-    let respuesta = '';
-    if (text.toLowerCase().includes('precio') || text.toLowerCase().includes('mantenimiento')) {
-      respuesta = 'Nuestros servicios de mantenimiento básico comienzan desde $25 e incluyen limpieza, diagnóstico y optimización.';
-    } else if (text.toLowerCase().includes('computadora') || text.toLowerCase().includes('venta')) {
-      respuesta = 'Tenemos computadoras y laptops desde $250, todas con garantía de 6 meses.';
-    } else if (text.toLowerCase().includes('cámara') || text.toLowerCase().includes('seguridad')) {
-      respuesta = 'Ofrecemos cámaras desde $35 y sistemas de instalación completos con DVR desde $150.';
-    } else {
-      respuesta = 'Gracias por tu consulta. Un asesor de TechSecure Solutions te contactará pronto.';
+      const respuesta = generarRespuesta(text);
+      setTimeout(() => addMessage('bot', respuesta), 800);
     }
 
-    setTimeout(() => addMessage('bot', respuesta), 800);
-  });
+    // 🔹 Agregar mensaje al chat
+    function addMessage(sender, text) {
+      const msg = document.createElement('div');
+      msg.classList.add('chat-message', sender);
+      msg.innerHTML = text;
+      chatBody.appendChild(msg);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
 
-  function addMessage(sender, text) {
-    const msg = document.createElement('div');
-    msg.classList.add('chat-message', sender);
-    msg.textContent = text;
-    chatBody.appendChild(msg);
-    chatBody.scrollTop = chatBody.scrollHeight;
+    // 🔹 Respuestas automáticas
+function generarRespuesta(texto) {
+  // Convertir a minúsculas y eliminar acentos
+  const t = texto.toLowerCase()
+                 .normalize("NFD")
+                 .replace(/[\u0300-\u036f]/g, "")
+                 .trim();
+
+  if (t.includes('hola') || t.includes('buenas')) {
+    return '👋 ¡Hola! Bienvenido a <strong>TechSecure Solutions</strong>. ¿Deseas información sobre mantenimiento, diagnóstico y reparación de hardware, venta de equipos o cámaras de seguridad?';
   }
-</script>
+
+  if ((t.includes('precio') || t.includes('cuesta')) && t.includes('mantenimiento')) {
+    return '💻 El mantenimiento preventivo básico cuesta desde <strong>$25</strong>, e incluye limpieza, diagnóstico y optimización.';
+  }
+
+  if (t.includes('diagnostico') || t.includes('reparacion') || t.includes('hardware')) {
+    return '🔧 El servicio de <strong>diagnóstico y reparación de hardware</strong> tiene un costo desde <strong>$30</strong>. Incluye revisión completa del equipo, reemplazo de componentes defectuosos y garantía en las reparaciones.';
+  }
+
+  if (t.includes('venta') && (t.includes('computadora') || t.includes('laptop'))) {
+    return '🖥️ Tenemos computadoras desde <strong>$250</strong> y laptops desde <strong>$300</strong>, con garantía de 6 meses.';
+  }
+
+  if (t.includes('camara') || t.includes('seguridad')) {
+    return '🎥 Ofrecemos cámaras desde <strong>$35</strong> y kits completos con DVR desde <strong>$150</strong>. Instalación disponible.';
+  }
+
+  if (t.includes('gracias')) {
+    return '😊 ¡Con gusto! Si necesitas más información, estoy aquí para ayudarte.';
+  }
+
+  return '🤖 Gracias por tu consulta. Un asesor de TechSecure Solutions te responderá pronto.';
+}
+  </script>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+  </footer>
 
 </body>
 </html>
