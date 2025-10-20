@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pago | TechSecure Solutions</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script> <!-- Reemplaza 'sb' por tu Client-ID real de PayPal -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AWbRf6rgO29_6ni7PWFZ-JA-jtPxGCqQV0w18pOIArze5p2cPBvNhlI6fhK_A7khTWkF8f4XFHGghLPD&currency=USD&locale=es_ES"></script>
+
   <style>
     section {
       max-width: 600px;
@@ -59,26 +60,18 @@
   <div id="paypal-button-container"></div>
 
   <div class="qr-container">
-    <h2>Pago Alternativo (QR)</h2>
-    <p>Escanea el siguiente código QR para pagar con Tigo Money o Bancoagrícola</p>
-    <img src="img/qr-pago-tigo.png" alt="Código QR Tigo Money / Bancoagrícola">
-    <p><strong>Nombre:</strong> TechSecure Solutions</p>
-    <p><strong>Teléfono asociado:</strong> +503 7805 1905</p>
-  </div>
+
 </section>
 
-<footer>
-  <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
-</footer>
-
 <script>
+  // Mostrar producto y precio
   const urlParams = new URLSearchParams(window.location.search);
   const producto = decodeURIComponent(urlParams.get("producto") || "Servicio TechSecure");
   const precio = parseFloat(urlParams.get("precio") || "25.00").toFixed(2);
-
   document.getElementById("resumen-producto").textContent = producto;
   document.getElementById("resumen-precio").textContent = precio;
 
+  // PayPal
   paypal.Buttons({
     createOrder: function(data, actions) {
       return actions.order.create({

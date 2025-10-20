@@ -6,16 +6,63 @@
   <title>Servicios | TechSecure Solutions</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
 
-  <!-- HEADER -->
+  <style>
+    /* ===== ESTILOS BÁSICOS ===== */
+    .catalogo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .item-catalogo {
+      flex: 1 1 calc(50% - 20px);
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .item-catalogo img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .item-catalogo h4 {
+      margin-top: 0;
+    }
+    .precio {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 1.1em;
+      margin-top: 5px;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #003366;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      margin-top: 8px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #0055aa;
+    }
+    @media (max-width: 768px) {
+      .item-catalogo {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
   <header>
     <h1>Nuestros Servicios</h1>
     <p>Soluciones tecnológicas confiables para hogares y empresas</p>
   </header>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html">Inicio</a>
     <a href="servicios.html">Servicios</a>
@@ -24,46 +71,117 @@
     <a href="contacto.html">Contacto</a>
   </nav>
 
-  <!-- SECCIÓN SERVICIOS -->
   <section>
-    <h2>Soluciones que Ofrecemos</h2>
-    <div class="servicios">
+    <h2>Soluciones Detalladas que Ofrecemos</h2>
 
-      <div class="card">
-        <img src="img/mantenimiento.jpeg" alt="Mantenimiento y reparación de computadoras">
-        <h3>Mantenimiento y Reparación</h3>
-        <p>Limpieza de hardware, actualización de software y optimización de sistemas para garantizar el máximo rendimiento de tus computadoras y laptops.</p>
-        <a href="solicitar-servicio.html?servicio=mantenimiento" class="btn">Solicitar este servicio</a>
+<!-- ===== MANTENIMIENTO Y REPARACIÓN ===== -->
+<div class="servicios-categoria" id="mantenimiento">
+  <h3>Mantenimiento y Reparación de Equipos 🛠️</h3>
+  <p>Servicios especializados para optimizar el rendimiento y extender la vida útil de tus dispositivos.</p>
+  
+  <div class="catalogo">
+
+<!-- 🔧 Mantenimiento Preventivo Básico -->
+<div class="item-catalogo">
+  <img src="img/mantenimiento-preventivo.jpg" alt="Servicio de Mantenimiento Preventivo Básico">
+  <h4>Mantenimiento Preventivo Básico</h4>
+  <p>Limpieza de software, limpieza de hardware, eliminación de virus y optimización de inicio.</p>
+  <p class="precio">$30 USD</p>
+  <a href="solicitar-servicio.html?producto=Mantenimiento%20Preventivo%20Básico&precio=30" class="btn">Solicitar servicio</a>
+</div>
+
+<!-- 🧰 Diagnóstico y Reparación de Hardware -->
+<div class="item-catalogo">
+  <img src="img/reparacion-hardware.jpg" alt="Diagnóstico y Reparación de Hardware">
+  <h4>Diagnóstico y Reparación de Hardware</h4>
+  <p>Diagnóstico de fallos de componentes (placa madre, memoria RAM, disco duro).</p>
+  <p class="precio">$20 USD (Diagnóstico) + Costo de Pieza</p>
+  <a href="solicitar-servicio.html?producto=Diagnóstico%20y%20Reparación%20de%20Hardware&precio=20" class="btn">Solicitar servicio</a>
+</div>
+
+
+  </div>
+</div>
+
+
+
+    <!-- ===== VENTA DE EQUIPOS ===== -->
+<div class="servicios-categoria">
+  <h3>Venta de Equipos y Accesorios 💻</h3>
+  <p>Catálogo de equipos seleccionados para alto rendimiento y durabilidad.</p>
+  <div class="catalogo">
+
+    <div class="item-catalogo">
+      <img src="img/laptop-pro.jpg" alt="Laptop de Alto Rendimiento">
+      <h4>Laptop Gaming Lenovo LOQ 83JC003TGJ AMD Ryzen 5 7235HS</h4>
+      <p>Laptop Gaming Lenovo LOQ 83JC003TGJ AMD Ryzen 5 7235HS 16GB RAM 512GB SSD Almacenamiento Windows 11 15.6" (39.62 cm)</p>
+      <p class="precio">$1100.00 USD</p>
+      <!-- ✅ Solo botones de compra y detalle -->
+            <a href="detalle.html?servicio=venta-laptop-pro" class="btn">Ver Detalle</a>
+    </div>
+
+    <div class="item-catalogo">
+      <img src="img/mouse-gamer.jpg" alt="Mouse Gamer Ergonómico">
+      <h4>Mouse gaming inalámbrico Aerox 9 iluminado</h4>
+      <p>Diseño ultraligero, uno de los ratones MMO/MOBA más ligeros con 18 botones programables y batería de 180 horas. Protección IP54 contra agua y polvo.</p>
+      <p class="precio">$85.00 USD</p>
+      <!-- ✅ Solo botones de compra y detalle -->
+            <a href="detalle.html?servicio=venta-mouse" class="btn">Ver Detalle</a>
+    </div>
+
+  </div>
+</div>
+
+
+    <!-- ===== SOPORTE Y ASISTENCIA ===== -->
+    <div class="servicios-categoria">
+      <h3>Soporte y Asistencia Remota 📞</h3>
+      <p>Soluciones rápidas y eficientes mediante conexión remota segura.</p>
+      <div class="catalogo">
+        <div class="item-catalogo">
+          <img src="img/asistencia-remota.jpg" alt="Asistencia Remota por Incidencia">
+          <h4>Asistencia Remota por Incidencia</h4>
+          <p>Solución de problemas de software y configuración en tiempo real.</p>
+          <p class="precio">$25 USD / Sesión</p>
+          <a href="solicitar-servicio.html?servicio=asistencia-remota" class="btn">Contratar</a>
+          <a href="detalle.html?servicio=asistencia-remota" class="btn">Ver Detalle</a>
+        </div>
+        <div class="item-catalogo">
+          <img src="img/plan-mensual.jpg" alt="Plan de Soporte Mensual Preventivo">
+          <h4>Plan Soporte Preventivo Mensual</h4>
+          <p>Monitoreo proactivo, 1 revisión mensual y soporte remoto ilimitado.</p>
+          <p class="precio">$49 USD / Mes</p>
+          <a href="solicitar-servicio.html?servicio=plan-mensual" class="btn">Contratar Plan</a>
+          <a href="detalle.html?servicio=plan-mensual" class="btn">Ver Detalle</a>
+        </div>
       </div>
+    </div>
 
-      <div class="card">
-        <img src="img/venta-equipos.png" alt="Venta de equipos tecnológicos">
-        <h3>Venta de Equipos</h3>
-        <p>Venta de computadoras, laptops, accesorios y componentes de calidad con garantía y soporte técnico incluido.</p>
-        <a href="solicitar-servicio.html?servicio=venta" class="btn">Solicitar este servicio</a>
+    <!-- ===== CÁMARAS DE SEGURIDAD ===== -->
+    <div class="servicios-categoria">
+      <h3>Cámaras de Seguridad (Venta e Instalación) 📹</h3>
+      <p>Sistemas de videovigilancia adaptados a tu presupuesto y necesidades.</p>
+      <div class="catalogo">
+        <div class="item-catalogo">
+          <img src="img/camara-economica.jpg" alt="Cámara de Seguridad Económica 1080p">
+          <h4>Cámara Económica 1080p (Domo)</h4>
+          <p>Cámara Dahua Domo 2MP, micrófono integrado, 40m IR, IP67.</p>
+          <p class="precio">$45 USD (Solo Cámara)</p>
+          <a href="detalle.html?servicio=venta-camara-eco" class="btn">Ver Detalle</a>
+        </div>
+        <div class="item-catalogo">
+          <img src="img/camara-profesional.jpg" alt="Cámara Profesional 4K con IA">
+          <h4>Cámara HIKVISION Profesional</h4>
+          <p>Cámara IP 4MP lente motorizado 2.8-12mm, IR 30m, PoE, IP67.</p>
+          <p class="precio">$194.95 USD (Solo Cámara)</p>
+          <a href="detalle.html?servicio=venta-camara-pro" class="btn">Ver Detalle</a>
+        </div>
       </div>
-
-      <div class="card">
-        <img src="img/soporte.jpg" alt="Soporte técnico preventivo y remoto">
-        <h3>Soporte Técnico Preventivo y Asistencia Remota</h3>
-        <p>Planes de mantenimiento que previenen fallos y asistencia remota para resolver problemas sin necesidad de desplazamiento.</p>
-        <a href="solicitar-servicio.html?servicio=soporte" class="btn">Solicitar este servicio</a>
-      </div>
-
-      <div class="card">
-        <img src="img/camaras.jpg" alt="Cámaras de seguridad profesional">
-        <h3>Cámaras de Seguridad (Venta e Instalación)</h3>
-        <p>Venta, instalación y configuración de sistemas de videovigilancia de alta definición, con soporte post-instalación para un monitoreo eficiente.</p>
-        <a href="solicitar-servicio.html?servicio=camaras" class="btn">Solicitar este servicio</a>
-      </div>
-
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
   </footer>
-
 </body>
 </html>

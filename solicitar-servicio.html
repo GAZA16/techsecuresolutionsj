@@ -69,23 +69,23 @@
     <p>Solicita tu servicio en línea</p>
   </header>
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="servicios.html">Servicios</a>
-    <a href="quienes-somos.html">Quiénes Somos</a>
-    <a href="mision-vision.html">Misión y Visión</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="servicios.html">Servicios</a>
+  <a href="quienes-somos.html">Quiénes Somos</a>
+  <a href="mision-vision.html">Misión y Visión</a>
+  <a href="contacto.html">Contacto</a>
+</nav>
 
   <section>
     <h2>Formulario de Solicitud</h2>
     <form action="https://formspree.io/f/xzzjowvk" method="POST">
-      <!-- esto agregue -->     
-  <label for="producto">Producto o servicio</label>
-<input type="text" id="producto" name="producto" readonly>
 
-<label for="precio">Precio estimado (USD)</label>
-<input type="text" id="precio" name="precio" readonly>
+      <label for="producto">Producto o servicio</label>
+      <input type="text" id="producto" name="producto" readonly>
+
+      <label for="precio">Precio estimado (USD)</label>
+      <input type="text" id="precio" name="precio" readonly>
 
       <label for="nombre">Nombre completo</label>
       <input type="text" id="nombre" name="nombre" required>
@@ -99,53 +99,30 @@
       <label for="detalle">Detalles adicionales</label>
       <textarea id="detalle" name="detalle" rows="4" placeholder="Describe brevemente tus necesidades..."></textarea>
 
-
       <!-- Configuración de Formspree -->
       <input type="hidden" name="_next" value="https://gaza16.github.io/techsecuresolutions/gracias.html">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" value="Nueva solicitud de servicio - TechSecure Solutions">
 
       <button type="submit">Enviar solicitud</button>
-
-      <p style="text-align: center; margin-top: 1em;">
-  ¿Deseas pagar tu servicio ahora?<br>
-  <a href="pago.html" class="btn">Pagar con tarjeta</a>
-</p>
-
     </form>
   </section>
 
   <script>
-    // Captura el servicio desde la URL (?servicio=xxx)
+    // Capturar los parámetros desde la URL (?producto=...&precio=...)
     const params = new URLSearchParams(window.location.search);
-    document.getElementById("servicio").value = params.get("servicio") || "";
+
+    // Obtener los valores de producto y precio
+    const producto = params.get("producto") || "";
+    const precio = params.get("precio") || "";
+
+    // Asignarlos a los campos del formulario
+    document.getElementById("producto").value = decodeURIComponent(producto);
+    document.getElementById("precio").value = decodeURIComponent(precio);
   </script>
 
-<footer>
-  <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
-</footer>
-
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const producto = decodeURIComponent(params.get("producto") || params.get("servicio") || "");
-  const precio = params.get("precio") || "";
-
-  if (producto) document.getElementById("producto").value = producto;
-  if (precio) document.getElementById("precio").value = `$${precio}`;
-
-  // Agrega botón de pago si hay producto y precio
-  if (producto && precio) {
-    const pagoBtn = document.createElement("a");
-    pagoBtn.href = `pago.html?producto=${encodeURIComponent(producto)}&precio=${precio}`;
-    pagoBtn.textContent = "Pagar ahora";
-    pagoBtn.className = "btn";
-    pagoBtn.style.marginTop = "1em";
-    document.querySelector("form").appendChild(pagoBtn);
-  }
-</script>
-
-</body>
-</html>
-
+  <footer>
+    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Servicio | TechSecure Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .detalle-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .detalle-container img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .detalle-info {
+      margin-top: 20px;
+    }
+    .detalle-info h2 {
+      color: #003366;
+    }
+    .precio {
+      font-weight: bold;
+      color: #007bff;
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #003366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #0055aa;
+    }
+    /* ===== Carrito ===== */
+    .carrito-container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+    .carrito-container h3 {
+      color: #003366;
+    }
+    .carrito-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .cantidad-input {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 15px;
+      color: #003366;
+    }
+    .btn-pagar {
+      background-color: #28a745;
+    }
+    .btn-pagar:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Detalle del Servicio</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="quienes-somos.html">Quiénes Somos</a>
+    <a href="mision-vision.html">Misión y Visión</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+
+  <main>
+    <!-- ===== Detalle del producto ===== -->
+    <div class="detalle-container">
+      <img id="detalle-imagen" src="img/default.jpg" alt="Imagen del servicio">
+      <div class="detalle-info">
+        <h2 id="detalle-titulo">Cargando...</h2>
+        <p id="detalle-descripcion"></p>
+        <p class="precio" id="detalle-precio"></p>
+        <a id="agregar-carrito" href="#" class="btn">🛒 Agregar al carrito</a>
+      </div>
+    </div>
+
+    <!-- ===== Carrito ===== -->
+    <div class="carrito-container" id="carrito">
+      <h3>🛍️ Carrito de Compras</h3>
+      <div id="lista-carrito"></div>
+      <p class="total" id="total"></p>
+      <button id="comprar" class="btn">Comprar</button>
+      <button id="pagar" class="btn btn-pagar" style="display:none;">Pagar</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const servicio = params.get("servicio");
+
+    const catalogo = {
+      "venta-laptop-pro": {
+        titulo: "Laptop Gaming Lenovo LOQ Ryzen 5",
+        descripcion: "Laptop ideal para gaming o trabajo intensivo, con 16GB RAM, SSD de 512GB y pantalla de 15.6 pulgadas Full HD.",
+        precio: 1100.00,
+        imagen: "img/laptop-pro.jpg"
+      },
+      "venta-mouse": {
+        titulo: "Mouse Gaming Inalámbrico Aerox 9",
+        descripcion: "Diseño ultraligero, 18 botones programables, protección IP54 y batería de hasta 180 horas.",
+        precio: 85.00,
+        imagen: "img/mouse-gamer.jpg"
+      },
+      "venta-camara-eco": {
+        titulo: "Cámara Económica Dahua 1080p Domo",
+        descripcion: "Cámara análoga de alta definición con micrófono integrado, visión nocturna de 40m e índice IP67 para exteriores.",
+        precio: 45.00,
+        imagen: "img/camara-economica.jpg"
+      },
+      "venta-camara-pro": {
+        titulo: "Cámara HIKVISION Profesional 4MP",
+        descripcion: "Cámara IP con lente motorizado, IR de 30m, protección IK10 e inteligencia artificial para detección avanzada.",
+        precio: 194.95,
+        imagen: "img/camara-profesional.jpg"
+      }
+    };
+
+    const item = catalogo[servicio];
+    if (item) {
+      document.getElementById("detalle-titulo").textContent = item.titulo;
+      document.getElementById("detalle-descripcion").textContent = item.descripcion;
+      document.getElementById("detalle-precio").textContent = `$${item.precio.toFixed(2)} USD`;
+      document.getElementById("detalle-imagen").src = item.imagen;
+    }
+
+    const carrito = [];
+    const btnAgregar = document.getElementById("agregar-carrito");
+    const divCarrito = document.getElementById("carrito");
+    const listaCarrito = document.getElementById("lista-carrito");
+    const btnComprar = document.getElementById("comprar");
+    const btnPagar = document.getElementById("pagar");
+    const totalSpan = document.getElementById("total");
+
+    btnAgregar.addEventListener("click", (e) => {
+      e.preventDefault();
+      carrito.push({ ...item, cantidad: 1 });
+      divCarrito.style.display = "block";
+      renderCarrito();
+    });
+
+    btnComprar.addEventListener("click", () => {
+      btnPagar.style.display = "inline-block";
+      alert("Revisa tu carrito antes de pagar.");
+    });
+
+btnPagar.addEventListener("click", () => {
+  if (carrito.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+
+  // Tomamos solo el primer producto del carrito (puedes ampliar para varios productos)
+  const producto = encodeURIComponent(carrito[0].titulo);
+  const precio = carrito[0].precio.toFixed(2);
+  const cantidad = carrito[0].cantidad;
+
+  // Redirige a la página de pago con los datos
+  window.location.href = `pago.html?producto=${producto}&precio=${precio}&cantidad=${cantidad}`;
+});
+
+
+    function renderCarrito() {
+      listaCarrito.innerHTML = "";
+      let total = 0;
+      carrito.forEach((producto, index) => {
+        total += producto.precio * producto.cantidad;
+        const div = document.createElement("div");
+        div.classList.add("carrito-item");
+        div.innerHTML = `
+          <div>
+            <strong>${producto.titulo}</strong><br>
+            $${producto.precio.toFixed(2)} USD c/u
+          </div>
+          <div>
+            Cantidad:
+            <input type="number" min="1" value="${producto.cantidad}" class="cantidad-input" onchange="actualizarCantidad(${index}, this.value)">
+            <button class="btn" style="background-color:#dc3545; margin-left:10px;" onclick="eliminarItem(${index})">Eliminar</button>
+          </div>
+        `;
+        listaCarrito.appendChild(div);
+      });
+      totalSpan.textContent = carrito.length ? `Total: $${total.toFixed(2)} USD` : "";
+    }
+
+    window.eliminarItem = (index) => {
+      carrito.splice(index, 1);
+      renderCarrito();
+      if (carrito.length === 0) divCarrito.style.display = "none";
+    };
+
+    window.actualizarCantidad = (index, cantidad) => {
+      carrito[index].cantidad = parseInt(cantidad);
+      renderCarrito();
+    };
+  </script>
+
+</body>
+</html>

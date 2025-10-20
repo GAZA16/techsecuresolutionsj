@@ -14,7 +14,7 @@ body {
 
 /* -------------------- HEADER -------------------- */
 header {
-  background: linear-gradient(135deg, #4a90e2, #273c75);
+  background: linear-gradient(135deg, #4a90e2, #273c75); /* Gradiente azul */
   color: #fff;
   text-align: center;
   padding: 80px 20px 60px;
@@ -24,7 +24,7 @@ header {
 
 header .logo {
   width: 100%;
-  max-width: 450px; /* tamaño máximo del logo */
+  max-width: 450px;
   border-radius: 12px;
   margin-bottom: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -49,7 +49,7 @@ nav {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  background-color: #192a56;
+  background-color: #192a56; /* Azul Oscuro */
   padding: 15px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   position: sticky;
@@ -67,7 +67,7 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #00a8ff;
+  background-color: #00a8ff; /* Azul brillante al pasar */
   transform: scale(1.05);
 }
 
@@ -103,7 +103,120 @@ h2::after {
   border-radius: 2px;
 }
 
-/* -------------------- SERVICIOS -------------------- */
+.titulo-principal {
+  font-size: 4em;
+  color: #192a56;
+}
+
+/* -------------------- SERVICIOS: ESTRUCTURA DE CATÁLOGO DETALLADO -------------------- */
+
+/* Contenedor de cada grupo de servicios (Mantenimiento, Venta, etc.) */
+.servicios-categoria {
+    margin-bottom: 40px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.servicios-categoria h3 {
+    color: #273c75;
+    font-size: 1.8em;
+    border-left: 6px solid #4a90e2;
+    padding-left: 15px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Contenedor Flexbox para los items del catálogo */
+.catalogo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+/* Estilo para cada item del catálogo (reemplazo de .card para el detalle) */
+.item-catalogo {
+    flex: 1 1 calc(50% - 15px); /* Dos items por fila en escritorio */
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.item-catalogo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.item-catalogo img {
+    width: 100%;
+    height: 180px; /* Altura uniforme para todas las imágenes de producto */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.item-catalogo h4 {
+    color: #192a56;
+    font-size: 1.25em;
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+
+/* Estilo para el precio */
+.precio {
+    font-weight: 700;
+    color: #28a745; /* Verde para precios */
+    font-size: 1.5em;
+    margin: 10px 0 20px;
+}
+
+/* Ajuste para el botón dentro del item-catalogo */
+.item-catalogo .btn {
+    margin-top: auto; /* Empuja el botón al final */
+    margin-left: 0;
+    margin-right: 0;
+    /* Reutiliza los estilos base de .card .btn */
+    padding: 12px 20px;
+    background-color: #4a90e2;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.item-catalogo .btn:hover {
+    background-color: #338fcc;
+    transform: scale(1.02);
+}
+
+/* Estilos para las fotos de instalaciones */
+.item-catalogo[style*="flex: 1 1 100%"] {
+    flex: 1 1 100% !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.item-catalogo[style*="flex: 1 1 100%"] img {
+    height: 150px;
+    margin: 10px 10px 0 0;
+    width: calc(50% - 20px);
+    display: inline-block;
+}
+
+
+/* -------------------- SERVICIOS: ESTILOS ANTIGUOS (Mantenidos por si acaso) -------------------- */
 .servicios {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -159,6 +272,7 @@ h2::after {
   background-color: #338fcc;
   transform: scale(1.05);
 }
+
 
 /* -------------------- FORMULARIOS -------------------- */
 .field {
@@ -238,57 +352,158 @@ footer a:hover {
     margin: 30px 15px;
   }
 
+  /* Ajuste para el catálogo en móvil (una columna) */
+  .catalogo {
+    gap: 20px;
+  }
+  
+  .item-catalogo {
+    flex: 1 1 100%; /* Una tarjeta por fila en móviles */
+    padding: 15px;
+  }
+
+  /* Ajuste para las fotos de instalación en móvil (una por fila) */
+  .item-catalogo[style*="flex: 1 1 100%"] {
+    flex-direction: column;
+  }
+  .item-catalogo[style*="flex: 1 1 100%"] img {
+    height: auto;
+    width: 100%;
+    margin: 10px 0;
+  }
+
   .card img {
     height: 180px;
   }
-.catalogo {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5em;
-  justify-content: space-between;
-  margin-bottom: 3em;
-}
-
-.item {
-  flex: 1 1 calc(33% - 1em);
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 1em;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  transition: 0.3s ease;
-}
-
-.item img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 0.5em;
-}
-
-.item h4 {
-  margin: 0.5em 0;
-  color: #002b5c;
-}
-
-.item p {
-  margin: 0.3em 0;
-  font-size: 0.95em;
-}
-
-@media (max-width: 768px) {
-  .item {
-    flex: 1 1 100%;
-  }
-}
-
-  /* -------------------- AJUSTAR TAMAÑO EN MOVIL -------------------- */
-  @media(max-width: 768px) {
+  
+  /* AJUSTE PARA LOGO */
   .logo {
-    max-width: 250px; /* tamaño más adecuado para móviles */
+    max-width: 250px;
   }
 }
 
+
+/* -------------------- CHATBOT -------------------- */
+#chat-toggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+
+#chat-toggle:hover {
+  background-color: #338fcc;
+  transform: scale(1.1);
+}
+
+/* Contenedor del chat */
+.chatbot-container {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 320px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2000;
+}
+
+/* Cabecera del chat */
+.chat-header {
+  background-color: #273c75;
+  color: white;
+  padding: 12px 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Cuerpo del chat */
+.chat-body {
+  height: 280px;
+  overflow-y: auto;
+  padding: 12px;
+  font-size: 0.95em;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f4f6f8;
+}
+
+/* Mensajes */
+.chat-message {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  line-height: 1.4;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  background-color: #4a90e2;
+  color: #fff;
+}
+
+.chat-message.bot {
+  align-self: flex-start;
+  background-color: #e1e8ef;
+  color: #333;
+}
+
+/* Área de entrada */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  font-size: 1em;
+  border-radius: 0 0 0 15px;
+}
+
+.chat-input input:focus {
+  outline: none;
+}
+
+.chat-input button {
+  background-color: #4a90e2;
+  border: none;
+  color: #fff;
+  padding: 0 18px;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 0 0 15px 0;
+  transition: background-color 0.3s;
+}
+
+.chat-input button:hover {
+  background-color: #338fcc;
+}
+
+/* Animación de aparición */
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.chatbot-container.show {
+  display: flex;
+  animation: slideUp 0.4s ease;
 }
