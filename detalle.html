@@ -133,115 +133,140 @@
     <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
   </footer>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const servicio = params.get("servicio");
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const servicio = params.get("servicio");
 
-    const catalogo = {
-      "venta-laptop-pro": {
-        titulo: "Laptop Gaming Lenovo LOQ Ryzen 5",
-        descripcion: "Laptop ideal para gaming o trabajo intensivo, con 16GB RAM, SSD de 512GB y pantalla de 15.6 pulgadas Full HD.",
-        precio: 1100.00,
-        imagen: "img/laptop-pro.jpg"
-      },
-      "venta-mouse": {
-        titulo: "Mouse Gaming Inalámbrico Aerox 9",
-        descripcion: "Diseño ultraligero, 18 botones programables, protección IP54 y batería de hasta 180 horas.",
-        precio: 85.00,
-        imagen: "img/mouse-gamer.jpg"
-      },
-      "venta-camara-eco": {
-        titulo: "Cámara Económica Dahua 1080p Domo",
-        descripcion: "Cámara análoga de alta definición con micrófono integrado, visión nocturna de 40m e índice IP67 para exteriores.",
-        precio: 45.00,
-        imagen: "img/camara-economica.jpg"
-      },
-      "venta-camara-pro": {
-        titulo: "Cámara HIKVISION Profesional 4MP",
-        descripcion: "Cámara IP con lente motorizado, IR de 30m, protección IK10 e inteligencia artificial para detección avanzada.",
-        precio: 194.95,
-        imagen: "img/camara-profesional.jpg"
-      }
-    };
+  const catalogo = {
+    /* ======== 🖥️ VENTA DE EQUIPOS ======== */
+    "venta-laptop-pro": {
+      titulo: "Laptop Gaming Lenovo LOQ Ryzen 5",
+      descripcion:
+        "Laptop ideal para gaming o trabajo intensivo, con 16GB RAM, SSD de 512GB y pantalla de 15.6 pulgadas Full HD.",
+      precio: 1100.0,
+      imagen: "img/laptop-pro.jpg",
+    },
+    "venta-mouse": {
+      titulo: "Mouse Gaming Inalámbrico Aerox 9",
+      descripcion:
+        "Diseño ultraligero, 18 botones programables, protección IP54 y batería de hasta 180 horas.",
+      precio: 85.0,
+      imagen: "img/mouse-gamer.jpg",
+    },
+    "venta-camara-eco": {
+      titulo: "Cámara Económica Dahua 1080p Domo",
+      descripcion:
+        "Cámara análoga de alta definición con micrófono integrado, visión nocturna de 40m e índice IP67 para exteriores.",
+      precio: 45.0,
+      imagen: "img/camara-economica.jpg",
+    },
+    "venta-camara-pro": {
+      titulo: "Cámara HIKVISION Profesional 4MP",
+      descripcion:
+        "Cámara IP con lente motorizado, IR de 30m, protección IK10 e inteligencia artificial para detección avanzada.",
+      precio: 194.95,
+      imagen: "img/camara-profesional.jpg",
+    },
 
-    const item = catalogo[servicio];
-    if (item) {
-      document.getElementById("detalle-titulo").textContent = item.titulo;
-      document.getElementById("detalle-descripcion").textContent = item.descripcion;
-      document.getElementById("detalle-precio").textContent = `$${item.precio.toFixed(2)} USD`;
-      document.getElementById("detalle-imagen").src = item.imagen;
-    }
+    /* ======== 🔧 SERVICIOS DE SOPORTE Y ASISTENCIA ======== */
+    "asistencia-remota": {
+      titulo: "Asistencia Remota por Incidencia",
+      descripcion:
+        "Solución de problemas de software y configuración en tiempo real mediante conexión remota segura.",
+      precio: 25.0,
+      imagen: "img/asistencia-remota.jpg",
+    },
+    "plan-mensual": {
+      titulo: "Plan Soporte Preventivo Mensual",
+      descripcion:
+        "Monitoreo proactivo, revisión mensual y soporte remoto ilimitado durante todo el mes.",
+      precio: 49.0,
+      imagen: "img/plan-mensual.jpg",
+    },
+  };
 
-    const carrito = [];
-    const btnAgregar = document.getElementById("agregar-carrito");
-    const divCarrito = document.getElementById("carrito");
-    const listaCarrito = document.getElementById("lista-carrito");
-    const btnComprar = document.getElementById("comprar");
-    const btnPagar = document.getElementById("pagar");
-    const totalSpan = document.getElementById("total");
-
-    btnAgregar.addEventListener("click", (e) => {
-      e.preventDefault();
-      carrito.push({ ...item, cantidad: 1 });
-      divCarrito.style.display = "block";
-      renderCarrito();
-    });
-
-    btnComprar.addEventListener("click", () => {
-      btnPagar.style.display = "inline-block";
-      alert("Revisa tu carrito antes de pagar.");
-    });
-
-btnPagar.addEventListener("click", () => {
-  if (carrito.length === 0) {
-    alert("Tu carrito está vacío.");
-    return;
+  const item = catalogo[servicio];
+  if (item) {
+    document.getElementById("detalle-titulo").textContent = item.titulo;
+    document.getElementById("detalle-descripcion").textContent =
+      item.descripcion;
+    document.getElementById(
+      "detalle-precio"
+    ).textContent = `$${item.precio.toFixed(2)} USD`;
+    document.getElementById("detalle-imagen").src = item.imagen;
   }
 
-  // Tomamos solo el primer producto del carrito (puedes ampliar para varios productos)
-  const producto = encodeURIComponent(carrito[0].titulo);
-  const precio = carrito[0].precio.toFixed(2);
-  const cantidad = carrito[0].cantidad;
+  const carrito = [];
+  const btnAgregar = document.getElementById("agregar-carrito");
+  const divCarrito = document.getElementById("carrito");
+  const listaCarrito = document.getElementById("lista-carrito");
+  const btnComprar = document.getElementById("comprar");
+  const btnPagar = document.getElementById("pagar");
+  const totalSpan = document.getElementById("total");
 
-  // Redirige a la página de pago con los datos
-  window.location.href = `pago.html?producto=${producto}&precio=${precio}&cantidad=${cantidad}`;
-});
+  btnAgregar.addEventListener("click", (e) => {
+    e.preventDefault();
+    carrito.push({ ...item, cantidad: 1 });
+    divCarrito.style.display = "block";
+    renderCarrito();
+  });
 
+  btnComprar.addEventListener("click", () => {
+    btnPagar.style.display = "inline-block";
+    alert("Revisa tu carrito antes de pagar.");
+  });
 
-    function renderCarrito() {
-      listaCarrito.innerHTML = "";
-      let total = 0;
-      carrito.forEach((producto, index) => {
-        total += producto.precio * producto.cantidad;
-        const div = document.createElement("div");
-        div.classList.add("carrito-item");
-        div.innerHTML = `
-          <div>
-            <strong>${producto.titulo}</strong><br>
-            $${producto.precio.toFixed(2)} USD c/u
-          </div>
-          <div>
-            Cantidad:
-            <input type="number" min="1" value="${producto.cantidad}" class="cantidad-input" onchange="actualizarCantidad(${index}, this.value)">
-            <button class="btn" style="background-color:#dc3545; margin-left:10px;" onclick="eliminarItem(${index})">Eliminar</button>
-          </div>
-        `;
-        listaCarrito.appendChild(div);
-      });
-      totalSpan.textContent = carrito.length ? `Total: $${total.toFixed(2)} USD` : "";
+  btnPagar.addEventListener("click", () => {
+    if (carrito.length === 0) {
+      alert("Tu carrito está vacío.");
+      return;
     }
 
-    window.eliminarItem = (index) => {
-      carrito.splice(index, 1);
-      renderCarrito();
-      if (carrito.length === 0) divCarrito.style.display = "none";
-    };
+    const producto = encodeURIComponent(carrito[0].titulo);
+    const precio = carrito[0].precio.toFixed(2);
+    const cantidad = carrito[0].cantidad;
 
-    window.actualizarCantidad = (index, cantidad) => {
-      carrito[index].cantidad = parseInt(cantidad);
-      renderCarrito();
-    };
-  </script>
+    // Redirige a la página de pago con los datos del producto o servicio
+    window.location.href = `pago.html?producto=${producto}&precio=${precio}&cantidad=${cantidad}`;
+  });
+
+  function renderCarrito() {
+    listaCarrito.innerHTML = "";
+    let total = 0;
+    carrito.forEach((producto, index) => {
+      total += producto.precio * producto.cantidad;
+      const div = document.createElement("div");
+      div.classList.add("carrito-item");
+      div.innerHTML = `
+        <div>
+          <strong>${producto.titulo}</strong><br>
+          $${producto.precio.toFixed(2)} USD c/u
+        </div>
+        <div>
+          Cantidad:
+          <input type="number" min="1" value="${producto.cantidad}" class="cantidad-input" onchange="actualizarCantidad(${index}, this.value)">
+          <button class="btn" style="background-color:#dc3545; margin-left:10px;" onclick="eliminarItem(${index})">Eliminar</button>
+        </div>
+      `;
+      listaCarrito.appendChild(div);
+    });
+    totalSpan.textContent = carrito.length
+      ? `Total: $${total.toFixed(2)} USD`
+      : "";
+  }
+
+  window.eliminarItem = (index) => {
+    carrito.splice(index, 1);
+    renderCarrito();
+    if (carrito.length === 0) divCarrito.style.display = "none";
+  };
+
+  window.actualizarCantidad = (index, cantidad) => {
+    carrito[index].cantidad = parseInt(cantidad);
+    renderCarrito();
+  };
+</script>
+
 
 </body>
 </html>

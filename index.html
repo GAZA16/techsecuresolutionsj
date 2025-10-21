@@ -65,100 +65,274 @@
     </div>
   </section>
 
-  <!-- ===== CHAT BOT ===== -->
-  <div class="chatbot-container" id="chatbot">
-    <div class="chat-header">💬 TechSecure Solutions ChatBot</div>
-    <div class="chat-body" id="chat-body"></div>
-    <div class="chat-input">
-      <input type="text" id="user-input" placeholder="Escribe tu pregunta...">
-      <button id="send-btn">Enviar</button>
-    </div>
+<!-- ===== CHAT BOT ===== -->
+<div class="chatbot-container" id="chatbot">
+  <div class="chat-header">
+    💬 TechSecure Solutions ChatBot
+    <span class="chat-close" id="chat-close">✖</span>
   </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-input">
+    <input type="text" id="user-input" placeholder="Escribe tu pregunta...">
+    <button id="send-btn">Enviar</button>
+  </div>
+</div>
 
-  <button id="chat-toggle">💬</button>
+<button id="chat-toggle">💬</button>
 
-  <!-- ===== SCRIPT CHAT BOT ===== -->
-  <script>
-    const chatToggle = document.getElementById('chat-toggle');
-    const chatbot = document.getElementById('chatbot');
-    const sendBtn = document.getElementById('send-btn');
-    const userInput = document.getElementById('user-input');
-    const chatBody = document.getElementById('chat-body');
+<!-- ===== SCRIPT CHAT BOT ===== -->
+<script>
+  const chatToggle = document.getElementById('chat-toggle');
+  const chatbot = document.getElementById('chatbot');
+  const sendBtn = document.getElementById('send-btn');
+  const userInput = document.getElementById('user-input');
+  const chatBody = document.getElementById('chat-body');
+  const chatClose = document.getElementById('chat-close');
 
-    // 🔹 Mostrar chat automáticamente al cargar la página
-    window.addEventListener('load', () => {
-      chatbot.classList.add('show');
-      setTimeout(() => {
-        addMessage('bot', '👋 ¡Hola! Soy <strong>TechSecure Solutions</strong>, tu asistente virtual.');
-        addMessage('bot', '¿En qué puedo ayudarte hoy? Puedes preguntarme sobre precios, mantenimiento, venta de equipos o cámaras de seguridad.');
-      }, 600);
-    });
+  let esperandoServicio = false; // 🔹 Saber si el bot está esperando respuesta sobre qué servicio
 
-    // 🔹 Mostrar / ocultar manualmente
-    chatToggle.addEventListener('click', () => {
-      chatbot.classList.toggle('show');
-    });
+  // 🔹 Mostrar chat automáticamente al cargar la página
+  window.addEventListener('load', () => {
+    chatbot.classList.add('show');
+    setTimeout(() => {
+      addMessage('bot', '👋 ¡Hola! Soy <strong>TechSecure Solutions</strong>, tu asistente virtual.');
+      addMessage('bot', '¿En qué puedo ayudarte hoy? Puedes preguntarme sobre precios, mantenimiento, venta de equipos o cámaras de seguridad.');
+    }, 600);
+  });
 
-    // 🔹 Enviar mensaje
-    sendBtn.addEventListener('click', sendMessage);
-    userInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendMessage();
-    });
+  // 🔹 Mostrar / ocultar manualmente
+  chatToggle.addEventListener('click', () => {
+    chatbot.classList.toggle('show');
+  });
 
-    function sendMessage() {
-      const text = userInput.value.trim();
-      if (!text) return;
-      addMessage('user', text);
-      userInput.value = '';
+  // 🔹 Cerrar chat con la X
+  chatClose.addEventListener('click', () => {
+    chatbot.classList.remove('show');
+  });
 
-      const respuesta = generarRespuesta(text);
-      setTimeout(() => addMessage('bot', respuesta), 800);
-    }
+  // 🔹 Enviar mensaje
+  sendBtn.addEventListener('click', sendMessage);
+  userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
 
-    // 🔹 Agregar mensaje al chat
-    function addMessage(sender, text) {
-      const msg = document.createElement('div');
-      msg.classList.add('chat-message', sender);
-      msg.innerHTML = text;
-      chatBody.appendChild(msg);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
+  function sendMessage() {
+    const text = userInput.value.trim();
+    if (!text) return;
+    addMessage('user', text);
+    userInput.value = '';
 
-    // 🔹 Respuestas automáticas
+    const respuesta = generarRespuesta(text);
+    setTimeout(() => addMessage('bot', respuesta), 800);
+  }
+
+  // 🔹 Agregar mensaje al chat
+  function addMessage(sender, text) {
+    const msg = document.createElement('div');
+    msg.classList.add('chat-message', sender);
+    msg.innerHTML = text;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  // 🔹 Generar respuestas automáticas
 function generarRespuesta(texto) {
-  // Convertir a minúsculas y eliminar acentos
   const t = texto.toLowerCase()
-                 .normalize("NFD")
-                 .replace(/[\u0300-\u036f]/g, "")
-                 .trim();
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
 
+  // 🔸 Si el bot está esperando un servicio
+  if (esperandoServicio) {
+    esperandoServicio = false;
+    if (t.includes('mantenimiento')) {
+      return '💻 El mantenimiento preventivo básico cuesta desde <strong>$25</strong>, e incluye limpieza, diagnóstico y optimización.';
+    }
+    if (t.includes('reparacion') || t.includes('hardware')) {
+      return '🔧 La reparación y diagnóstico de hardware tiene un costo desde <strong>$30</strong>. Incluye revisión completa y garantía en las reparaciones.';
+    }
+    if (t.includes('venta') || t.includes('equipo') || t.includes('computadora') || t.includes('laptop')) {
+      return '🖥️ En <strong>TechSecure Solutions</strong> tenemos equipos de calidad:\n<br>• Computadoras desde <strong>$250</strong>\n<br>• Laptops desde <strong>$300</strong>\n<br>• Accesorios y periféricos disponibles\n<br>Todos con garantía y soporte técnico.';
+    }
+    if (t.includes('camara') || t.includes('seguridad')) {
+      return '🎥 Ofrecemos cámaras desde <strong>$35</strong> y kits con DVR desde <strong>$150</strong>, con instalación incluida.';
+    }
+    return '🤖 No logré identificar el servicio. Por favor indícame si deseas conocer el precio de mantenimiento, reparación, venta o cámaras.';
+  }
+
+  // 🔸 Pregunta sobre precios
+  if (t.includes('precio') || t.includes('cuesta')) {
+    esperandoServicio = true;
+    return '💬 ¿De qué servicio deseas conocer el precio? Tenemos <strong>mantenimiento</strong>, <strong>reparación de hardware</strong>, <strong>venta de equipos</strong> o <strong>cámaras de seguridad</strong>.';
+  }
+
+  // 🔸 Saludo
   if (t.includes('hola') || t.includes('buenas')) {
-    return '👋 ¡Hola! Bienvenido a <strong>TechSecure Solutions</strong>. ¿Deseas información sobre mantenimiento, diagnóstico y reparación de hardware, venta de equipos o cámaras de seguridad?';
+    return '👋 ¡Hola! Bienvenido a <strong>TechSecure Solutions</strong>. Puedes preguntarme sobre <strong>mantenimiento</strong>, <strong>reparación</strong>, <strong>venta de equipos</strong> o <strong>cámaras de seguridad</strong>.';
   }
 
-  if ((t.includes('precio') || t.includes('cuesta')) && t.includes('mantenimiento')) {
-    return '💻 El mantenimiento preventivo básico cuesta desde <strong>$25</strong>, e incluye limpieza, diagnóstico y optimización.';
+  // 🔸 Mantenimiento
+  if (t.includes('mantenimiento')) {
+    return '💻 Ofrecemos mantenimiento preventivo y correctivo para computadoras y laptops. Incluye limpieza interna, optimización y revisión de hardware.';
   }
 
+  // 🔸 Diagnóstico y reparación
   if (t.includes('diagnostico') || t.includes('reparacion') || t.includes('hardware')) {
-    return '🔧 El servicio de <strong>diagnóstico y reparación de hardware</strong> tiene un costo desde <strong>$30</strong>. Incluye revisión completa del equipo, reemplazo de componentes defectuosos y garantía en las reparaciones.';
+    return '🔧 El diagnóstico y reparación de hardware tiene un costo desde <strong>$30</strong>. Incluye revisión completa del equipo y garantía.';
   }
 
-  if (t.includes('venta') && (t.includes('computadora') || t.includes('laptop'))) {
-    return '🖥️ Tenemos computadoras desde <strong>$250</strong> y laptops desde <strong>$300</strong>, con garantía de 6 meses.';
+  // 🔸 Venta de equipos
+  if (
+    t.includes('venta') ||
+    t.includes('venden') ||
+    t.includes('comprar') ||
+    t.includes('equipo') ||
+    t.includes('computadora') ||
+    t.includes('laptop')
+  ) {
+    return '🖥️ En <strong>TechSecure Solutions</strong> contamos con una amplia gama de equipos y accesorios:\n<br>• Computadoras desde <strong>$250</strong>\n<br>• Laptops desde <strong>$300</strong>\n<br>• Accesorios (teclados, ratones, fuentes, etc.)\n<br>Todos incluyen <strong>garantía y asesoría técnica</strong>.\n<br>¿Deseas que te envíe el catálogo completo? 📦';
   }
 
+  // 🔸 Cámaras de seguridad
   if (t.includes('camara') || t.includes('seguridad')) {
-    return '🎥 Ofrecemos cámaras desde <strong>$35</strong> y kits completos con DVR desde <strong>$150</strong>. Instalación disponible.';
+    return '🎥 Ofrecemos cámaras de seguridad desde <strong>$35</strong> y kits con DVR desde <strong>$150</strong>. Incluye instalación profesional y soporte técnico.';
   }
 
-  if (t.includes('gracias')) {
+  // 🔸 WhatsApp (nuevo)
+  if (t.includes('whatsapp')) {
+    return '📱 Puedes comunicarte directamente con nosotros por <strong>WhatsApp</strong> haciendo clic aquí 👉 <a href="https://wa.me/50378051905?text=Hola%20TechSecure%20Solutions,%20necesito%20información%20sobre%20sus%20servicios." target="_blank">Abrir WhatsApp</a>';
+  }
+
+  // 🔸 Contacto o correo (nuevo)
+  if (t.includes('contacto') || t.includes('correo') || t.includes('email')) {
+    return '📧 Puedes escribirnos directamente a nuestro correo: <strong><a href="mailto:techsecuresolutions25@gmail.com">techsecuresolutions25@gmail.com</a></strong>\n<br>O si prefieres, contáctanos también por WhatsApp 👉 <a href="https://wa.me/50378051905" target="_blank">aquí</a>.';
+  }
+
+  // 🔸 Horarios
+  if (t.includes('horario') || t.includes('abren') || t.includes('atencion')) {
+    return '🕒 Nuestro horario de atención es de lunes a sábado, de 8:00 a.m. a 6:00 p.m.\n<br>📧 También puedes contactarnos en <strong><a href="mailto:techsecuresolutions25@gmail.com">techsecuresolutions25@gmail.com</a></strong>';
+  }
+
+  // 🔸 Agradecimientos
+  if (t.includes('gracias') || t.includes('ok')) {
     return '😊 ¡Con gusto! Si necesitas más información, estoy aquí para ayudarte.';
   }
 
-  return '🤖 Gracias por tu consulta. Un asesor de TechSecure Solutions te responderá pronto.';
+  // 🔸 Respuesta por defecto
+  return '🤖 Gracias por tu consulta. Un asesor de <strong>TechSecure Solutions</strong> te responderá pronto.\n<br>También puedes escribirnos a <a href="mailto:techsecuresolutions25@gmail.com">techsecuresolutions25@gmail.com</a> o por <a href="https://wa.me/50378051905" target="_blank">WhatsApp</a>.';
 }
-  </script>
+
+</script>
+
+
+
+<!-- ===== ESTILOS CHAT BOT ===== -->
+<style>
+  .chatbot-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    border: 2px solid #003366;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  .chatbot-container.show {
+    display: flex;
+  }
+
+  .chat-header {
+    background: #003366;
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+  }
+
+  .chat-close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .chat-close:hover {
+    color: #ff4d4d;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+    background: #f9f9f9;
+  }
+
+  .chat-message {
+    margin-bottom: 8px;
+  }
+
+  .chat-message.user {
+    text-align: right;
+    color: #003366;
+  }
+
+  .chat-message.bot {
+    text-align: left;
+  }
+
+  .chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-input input {
+    flex: 1;
+    border: none;
+    padding: 8px;
+  }
+
+  .chat-input button {
+    background: #003366;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .chat-input button:hover {
+    background: #0055cc;
+  }
+
+  #chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #003366;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  #chat-toggle:hover {
+    background: #0055cc;
+  }
+</style>
+
 
   <!-- FOOTER -->
   <footer>

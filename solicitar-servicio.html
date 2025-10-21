@@ -5,8 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solicitar Servicio | TechSecure Solutions</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
     /* --- Ajustes visuales del formulario --- */
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #f4f7fb;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: #fff;
+      text-align: center;
+      padding: 1em 0;
+    }
+
+    header .logo {
+      width: 120px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    nav {
+      background-color: #0055aa;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     section {
       max-width: 600px;
       margin: 2em auto;
@@ -60,8 +98,17 @@
       color: #002b5c;
       margin-bottom: 1em;
     }
+
+    footer {
+      background-color: #003366;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+      margin-top: 2em;
+    }
   </style>
 </head>
+
 <body>
   <header>
     <img src="img/LlogoTechSecureSolutionsWeb.gif" alt="Logo TechSecure Solutions" class="logo">
@@ -69,13 +116,13 @@
     <p>Solicita tu servicio en línea</p>
   </header>
 
-<nav>
-  <a href="index.html">Inicio</a>
-  <a href="servicios.html">Servicios</a>
-  <a href="quienes-somos.html">Quiénes Somos</a>
-  <a href="mision-vision.html">Misión y Visión</a>
-  <a href="contacto.html">Contacto</a>
-</nav>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="quienes-somos.html">Quiénes Somos</a>
+    <a href="mision-vision.html">Misión y Visión</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
 
   <section>
     <h2>Formulario de Solicitud</h2>
@@ -109,16 +156,57 @@
   </section>
 
   <script>
-    // Capturar los parámetros desde la URL (?producto=...&precio=...)
+    // ===== Capturar parámetros desde la URL =====
     const params = new URLSearchParams(window.location.search);
+    const servicio = params.get("servicio");
 
-    // Obtener los valores de producto y precio
-    const producto = params.get("producto") || "";
-    const precio = params.get("precio") || "";
+    // ===== Catálogo con nombres y precios =====
+    const serviciosCatalogo = {
+      "asistencia-remota": {
+        producto: "Asistencia Remota por Incidencia",
+        precio: "25 USD / Sesión"
+      },
+      "plan-mensual": {
+        producto: "Plan Soporte Preventivo Mensual",
+        precio: "49 USD / Mes"
+      },
+      "mantenimiento": {
+        producto: "Mantenimiento Preventivo Básico",
+        precio: "25 USD"
+      },
+      "reparacion": {
+        producto: "Diagnóstico y Reparación de Hardware",
+        precio: "30 USD"
+      },
+      "venta-laptop-pro": {
+        producto: "Laptop Gaming Lenovo LOQ Ryzen 5",
+        precio: "1100 USD"
+      },
+      "venta-mouse": {
+        producto: "Mouse Gaming Inalámbrico Aerox 9",
+        precio: "85 USD"
+      },
+      "venta-camara-eco": {
+        producto: "Cámara Económica Dahua 1080p Domo",
+        precio: "45 USD"
+      },
+      "venta-camara-pro": {
+        producto: "Cámara HIKVISION Profesional 4MP",
+        precio: "194.95 USD"
+      }
+    };
 
-    // Asignarlos a los campos del formulario
-    document.getElementById("producto").value = decodeURIComponent(producto);
-    document.getElementById("precio").value = decodeURIComponent(precio);
+    // ===== Llenar automáticamente los campos =====
+    if (servicio && serviciosCatalogo[servicio]) {
+      document.getElementById("producto").value = serviciosCatalogo[servicio].producto;
+      document.getElementById("precio").value = serviciosCatalogo[servicio].precio;
+    } else {
+      // Si viene con parámetros ?producto=...&precio=...
+      const producto = params.get("producto") || "";
+      const precio = params.get("precio") || "";
+      document.getElementById("producto").value = decodeURIComponent(producto);
+      document.getElementById("precio").value = decodeURIComponent(precio);
+    }
   </script>
 
   <footer>
