@@ -6,11 +6,14 @@
   <title>Detalle del Servicio | TechSecure Solutions</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
     }
     .detalle-container {
       max-width: 900px;
@@ -25,33 +28,98 @@
       max-height: 400px;
       object-fit: cover;
       border-radius: 8px;
+      margin-bottom: 20px;
     }
     .detalle-info {
-      margin-top: 20px;
+      margin-top: 10px;
     }
     .detalle-info h2 {
       color: #003366;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+    .descripcion {
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 20px;
     }
     .precio {
       font-weight: bold;
       color: #007bff;
-      margin-top: 10px;
-      font-size: 1.2em;
+      font-size: 1.4em;
+      margin: 15px 0;
     }
     .btn {
       display: inline-block;
       background-color: #003366;
       color: white;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 6px;
       text-decoration: none;
-      margin-top: 15px;
+      margin-top: 10px;
       transition: background 0.3s;
+      font-weight: 500;
     }
     .btn:hover {
       background-color: #0055aa;
     }
-    /* ===== Carrito ===== */
+
+    /* Acordeón de especificaciones */
+    .accordion {
+      margin-top: 20px;
+    }
+    .accordion-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      background-color: #f1f3f5;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .accordion-header:hover {
+      background-color: #e9ecef;
+    }
+    .accordion-header i {
+      transition: transform 0.3s;
+    }
+    .accordion-header.active i {
+      transform: rotate(180deg);
+    }
+    .accordion-body {
+      padding: 15px;
+      background-color: #fff;
+      display: none;
+      line-height: 1.6;
+      color: #555;
+    }
+    .accordion-body.active {
+      display: block;
+    }
+    .especificaciones-lista {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .especificaciones-lista li {
+      padding: 6px 0;
+      border-bottom: 1px dashed #eee;
+    }
+    .especificaciones-lista li:last-child {
+      border-bottom: none;
+    }
+    .especificaciones-lista strong {
+      color: #003366;
+    }
+
+    /* Carrito */
     .carrito-container {
       max-width: 700px;
       margin: 30px auto;
@@ -63,10 +131,11 @@
     }
     .carrito-container h3 {
       color: #003366;
+      margin-top: 0;
     }
     .carrito-item {
       border-bottom: 1px solid #ddd;
-      padding: 10px 0;
+      padding: 12px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -74,7 +143,7 @@
     }
     .cantidad-input {
       width: 60px;
-      padding: 5px;
+      padding: 6px;
       text-align: center;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -84,12 +153,22 @@
       font-weight: bold;
       margin-top: 15px;
       color: #003366;
+      font-size: 1.2em;
     }
     .btn-pagar {
       background-color: #28a745;
+      margin-left: 10px;
     }
     .btn-pagar:hover {
       background-color: #218838;
+    }
+    .btn-eliminar {
+      background-color: #dc3545;
+      padding: 6px 12px;
+      font-size: 0.9em;
+    }
+    .btn-eliminar:hover {
+      background-color: #c82333;
     }
   </style>
 </head>
@@ -108,24 +187,36 @@
   </nav>
 
   <main>
-    <!-- ===== Detalle del producto ===== -->
+    <!-- Detalle del producto -->
     <div class="detalle-container">
       <img id="detalle-imagen" src="img/default.jpg" alt="Imagen del servicio">
       <div class="detalle-info">
         <h2 id="detalle-titulo">Cargando...</h2>
-        <p id="detalle-descripcion"></p>
+        <p class="descripcion" id="detalle-descripcion"></p>
         <p class="precio" id="detalle-precio"></p>
-        <a id="agregar-carrito" href="#" class="btn">🛒 Agregar al carrito</a>
+
+        <!-- Acordeón de especificaciones -->
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <span>Especificaciones Técnicas</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-body" id="especificaciones-body"></div>
+          </div>
+        </div>
+
+        <a id="agregar-carrito" href="#" class="btn">Agregar al carrito</a>
       </div>
     </div>
 
-    <!-- ===== Carrito ===== -->
+    <!-- Carrito -->
     <div class="carrito-container" id="carrito">
-      <h3>🛍️ Carrito de Compras</h3>
+      <h3>Carrito de Compras</h3>
       <div id="lista-carrito"></div>
       <p class="total" id="total"></p>
-      <button id="comprar" class="btn">Comprar</button>
-      <button id="pagar" class="btn btn-pagar" style="display:none;">Pagar</button>
+      <button id="comprar" class="btn">Revisar Compra</button>
+      <button id="pagar" class="btn btn-pagar" style="display:none;">Pagar Ahora</button>
     </div>
   </main>
 
@@ -138,64 +229,165 @@
   const servicio = params.get("servicio");
 
   const catalogo = {
-    /* ======== 🖥️ VENTA DE EQUIPOS ======== */
+    /* ======== VENTA DE EQUIPOS ======== */
     "venta-laptop-pro": {
       titulo: "Laptop Gaming Lenovo LOQ Ryzen 5",
-      descripcion:
-        "Laptop ideal para gaming o trabajo intensivo, con 16GB RAM, SSD de 512GB y pantalla de 15.6 pulgadas Full HD.",
+      descripcion: `Laptop potente y versátil diseñado para satisfacer las necesidades de quienes buscan rendimiento tanto en el trabajo como en el entretenimiento. Su pantalla de 15.6 pulgadas con resolución Full HD (1920 x 1080 píxeles) ofrece imágenes nítidas y colores vivos, ideales para una experiencia visual inmersiva en juegos, videos y tareas diarias. La pantalla antirreflejo garantiza una buena visibilidad en diferentes condiciones de luz.\n\nEn el corazón del dispositivo se encuentra el procesador AMD Ryzen 5 7235HS, un chip de última generación que proporciona un rendimiento ágil y eficiente para multitarea y aplicaciones exigentes. Acompañado por 16 GB de memoria RAM DDR5, el Lenovo LOQ 15ARP9 maneja múltiples aplicaciones simultáneamente con facilidad y rapidez.\n\nEl almacenamiento es otro punto destacado del LOQ 15ARP9, con una unidad de estado sólido (SSD) de 512 GB que ofrece tiempos de arranque y carga rápidos, así como amplias capacidades para guardar archivos, programas y juegos. La tarjeta gráfica NVIDIA GeForce RTX 3050 con 6 GB de VRAM potencia el rendimiento gráfico, permitiendo jugar juegos modernos con configuraciones altas y realizar tareas de edición de video y diseño 3D sin problemas.\n\nEn términos de diseño, el laptop combina elegancia y robustez, con un teclado retroiluminado que facilita la escritura en condiciones de poca luz. Su peso y dimensiones equilibrados lo hacen fácil de transportar, ideal para estudiantes y profesionales en movimiento. Además, el Lenovo LOQ 15ARP9 está equipado con una variedad de puertos, incluidos USB 3.2, USB-C y HDMI, que permiten conectar diversos dispositivos y periféricos. La conectividad inalámbrica de última generación asegura una conexión estable y rápida a redes y dispositivos.\n\nEste laptop es una excelente opción para quienes buscan un dispositivo que ofrezca un rendimiento sólido para tareas exigentes y una experiencia de entretenimiento envolvente, todo en un paquete elegante y funcional.`,
+      especificaciones: [
+        "Versión de Bluetooth: 5.2",
+        "Tipo de pantalla: LED",
+        "Tipo de memoria RAM: DDR5 4800 MHz (2 x 8GB)",
+        "Memoria de almacenamiento: 512GB SSD",
+        "Memoria RAM: 16 GB",
+        "Resolución de pantalla: 1920 x 1080 Pixels",
+        "Tipo de procesador: AMD Ryzen 5-7235HS",
+        "Sistema operativo: Windows 11",
+        "Tamaño de pantalla: 15.6\" pulgadas (39.62 cm)",
+        "Resolución cámara: HD 720p con obturador de privacidad",
+        "Capacidad de batería: 60Wh",
+        "Puerto HDMI: 1",
+        "Puerto USB: 3x USB-A 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
+        "Tasa de Refresco: 144 HZ",
+        "Peso: 2.38 Kg",
+        "Tarjeta de Video: Nvidia GeForce RTX 3050 6GB",
+        "Garantía: 365 días / 12 meses",
+        "Tipo de Batería: Polímero de iones de litio",
+        "Modelo: 83JC003TGJ",
+        "Dimensiones: 35.98 cm ancho x 25.87 cm profundo x 2.39 cm alto aprox.",
+        "Conectividad: Bluetooth y WiFi"
+      ],
       precio: 1100.0,
-      imagen: "img/laptop-pro.jpg",
-    },
-    "venta-mouse": {
-      titulo: "Mouse Gaming Inalámbrico Aerox 9",
-      descripcion:
-        "Diseño ultraligero, 18 botones programables, protección IP54 y batería de hasta 180 horas.",
-      precio: 85.0,
-      imagen: "img/mouse-gamer.jpg",
-    },
-    "venta-camara-eco": {
-      titulo: "Cámara Económica Dahua 1080p Domo",
-      descripcion:
-        "Cámara análoga de alta definición con micrófono integrado, visión nocturna de 40m e índice IP67 para exteriores.",
-      precio: 45.0,
-      imagen: "img/camara-economica.jpg",
-    },
-    "venta-camara-pro": {
-      titulo: "Cámara HIKVISION Profesional 4MP",
-      descripcion:
-        "Cámara IP con lente motorizado, IR de 30m, protección IK10 e inteligencia artificial para detección avanzada.",
-      precio: 194.95,
-      imagen: "img/camara-profesional.jpg",
+      imagen: "img/laptop-pro.jpg"
     },
 
-    /* ======== 🔧 SERVICIOS DE SOPORTE Y ASISTENCIA ======== */
+    "venta-mouse": {
+      titulo: "Mouse Gaming Inalámbrico Aerox 9",
+      descripcion: `Diseño ultraligero: uno de los ratones MMO/MOBA más ligeros de 3.14 oz, perfecto para largas sesiones de juego en juegos como Final Fantasy XIV, World of Warcraft, Guild Wars 2, Elder Scrolls Online, League of Legends, DotA 2 y muchos más.\n\nPersonalización total: 18 botones programables con un panel lateral de 12 botones y una rueda de desplazamiento inclinable para toneladas de atajos a habilidades y macros. Personaliza cada clic con facilidad con SteelSeries Engine.\n\nProtección completa: clasificación IP54, AquaBarrier protege el mouse del agua, el polvo, la suciedad y mucho más.\n\nInalámbrico dual de última generación: inalámbrico Quantum 2.0 sin retrasos con una conexión impecable de 2.4 GHz para jugar y conectividad Bluetooth 5.0 sobre la marcha.\n\nBatería de larga duración - Juega hasta 180 horas. La carga rápida puede proporcionar 40 horas de juego con solo una carga de 15 minutos.\n\nRendimiento preciso: el innovador sensor TrueMove Air ofrece un control total con seguimiento de inclinación, ofreciendo 18.000 CPI, 400 IPS y 40G de aceleración.`,
+      especificaciones: [
+        "Resistencia al agua: Salpicaduras",
+        "Es ergonómico: No",
+        "Garantía: 365 días / 12 meses",
+        "Modelo: 62618",
+        "Dimensiones: Alto 12.90 x Ancho 7.01 x Profundidad 4.24 cm aprox.",
+        "Conectividad: Bluetooth",
+        "Fuente de energía: Batería"
+      ],
+      precio: 85.0,
+      imagen: "img/mouse-gamer.jpg"
+    },
+
+    "venta-camara-eco": {
+      titulo: "Cámara Económica Dahua 1080p Domo",
+      descripcion: `Cámara de vigilancia económica con resolución Full HD 1080p, ideal para interiores y exteriores. Incluye visión nocturna infrarroja de hasta 40 metros, protección IP67 contra agua y polvo, y micrófono integrado. Perfecta para monitoreo básico con alta calidad de imagen.`,
+      especificaciones: [
+        "Sensor de imagen: 2 MP CMOS",
+        "Resolución máxima: 1920 x 1080",
+        "Distancia de iluminación: 40 m (IR + luz cálida)",
+        "Iluminadores: 2 luz cálida, 2 IR",
+        "Lente: Focal fija 2.8 mm (opcional 3.6 mm)",
+        "Campo de visión: H: 102°, V: 60°, D: 129°",
+        "Protección: IP67",
+        "Material: Metal",
+        "Peso neto: 0.45 kg",
+        "Salida de video: CVI/TVI/AHD/CVBS (BNC)",
+        "Alimentación: 12 VDC ±30%",
+        "Consumo máximo: 4.1W",
+        "Temperatura operativa: –40 °C a +60 °C"
+      ],
+      precio: 45.0,
+      imagen: "img/camara-economica.jpg"
+    },
+
+    "venta-camara-pro": {
+      titulo: "Cámara HIKVISION Profesional 4MP",
+      descripcion: `Cámara IP profesional con resolución 4MP (2560 x 1440), lente motorizado 2.8-12mm, visión nocturna Smart IR de 30m y protección antivandálica IK10. Incluye detección facial, compresión H.265+ y compatibilidad con Hik-Connect para monitoreo remoto. Ideal para seguridad avanzada en interiores y exteriores.`,
+      especificaciones: [
+        "Resolución máxima: 2560 x 1440 (4MP)",
+        "Lente motorizado: 2.8 - 12mm (98° - 28°)",
+        "Distancia IR: 30 mts Smart IR",
+        "Iluminación mínima: 0.01 Lux (color)",
+        "Funciones: WDR, ROI, Detección de Rostros",
+        "Compresión: H.265+ / H.265 / H.264+",
+        "Entradas: 1 alarma, 1 audio",
+        "Salidas: 1 alarma, 1 audio",
+        "Red: PoE 802.3af, 10/100 Mbps",
+        "Almacenamiento: microSD hasta 128GB",
+        "Protección: IK10, IP67",
+        "Temperatura: -30°C a 60°C",
+        "Peso: 1330 grs",
+        "Garantía: 2 años"
+      ],
+      precio: 194.95,
+      imagen: "img/camara-profesional.jpg"
+    },
+
+/* ======== SERVICIOS REMOTOS CON ESPECIFICACIONES COMPLETAS ======== */
     "asistencia-remota": {
       titulo: "Asistencia Remota por Incidencia",
-      descripcion:
-        "Solución de problemas de software y configuración en tiempo real mediante conexión remota segura.",
+      descripcion: `Servicio técnico remoto inmediato para resolver problemas de software, configuración o rendimiento.\n\nIncluye:\n• Instalación de programas según solicitud del cliente\n• Instalación de licencias originales:\n - Windows 11 Profesional (+$120)\n - Office 2021 (+$90)\n - Office 365 (+$70/año)\n• Diagnóstico y solución de fallos\n• Optimización básica del sistema\n• Soporte vía chat/voz\n\nIdeal para usuarios que necesitan ayuda puntual sin desplazamientos. Precio base: $25 USD. Precio final depende de licencias instaladas.`,
+      especificaciones: [
+        "Tipo de servicio: Remoto por incidencia",
+        "Duración máxima: 2 horas por sesión",
+        "Herramientas: AnyDesk / TeamViewer (cifrado)",
+        "Horario de atención: Lunes a sábado, 8:00 - 20:00",
+        "Tiempo de respuesta: Máximo 30 minutos",
+        "Licencias originales: Precio adicional (ver arriba)",
+        "Garantía post-servicio: 48 horas",
+        "Soporte técnico: Voz + pantalla compartida",
+        "Requisitos cliente: Internet estable + permisos de admin",
+        "Cancelación: Gratuita hasta 1 hora antes"
+      ],
       precio: 25.0,
-      imagen: "img/asistencia-remota.jpg",
+      imagen: "img/asistencia-remota.jpg"
     },
+
     "plan-mensual": {
       titulo: "Plan Soporte Preventivo Mensual",
-      descripcion:
-        "Monitoreo proactivo, revisión mensual y soporte remoto ilimitado durante todo el mes.",
+      descripcion: `Mantenimiento proactivo para mantener tu equipo en óptimas condiciones.\n\nIncluye:\n• Actualización mensual de Windows y drivers\n• Escaneo y eliminación de virus/malware\n• Optimización de rendimiento (limpieza, registros, arranque)\n• Soporte remoto ilimitado durante el mes\n• Informe mensual de salud del sistema\n• Acceso prioritario vía WhatsApp\n\nPerfecto para gamers, freelancers y empresas pequeñas que no quieren interrupciones. Renovable automáticamente.`,
+      especificdatosServicio: [
+        "Frecuencia: 1 revisión programada al mes",
+        "Soporte remoto: Ilimitado (lunes a sábado, 8:00 - 20:00)",
+        "Duración del plan: 30 días (renovable)",
+        "Acceso prioritario: Sí, vía WhatsApp",
+        "Informe mensual: PDF con diagnóstico y recomendaciones",
+        "Cancelación: En cualquier momento (sin penalidad)",
+        "Método de conexión: AnyDesk / TeamViewer",
+        "Actualizaciones: Windows, antivirus, controladores",
+        "Optimización: Limpieza de disco, registros, inicio",
+        "Garantía de servicio: 100% satisfacción o devolución"
+      ],
       precio: 49.0,
-      imagen: "img/plan-mensual.jpg",
-    },
+      imagen: "img/plan-mensual.jpg"
+    }
   };
 
   const item = catalogo[servicio];
+
   if (item) {
     document.getElementById("detalle-titulo").textContent = item.titulo;
-    document.getElementById("detalle-descripcion").textContent =
-      item.descripcion;
-    document.getElementById(
-      "detalle-precio"
-    ).textContent = `$${item.precio.toFixed(2)} USD`;
+    document.getElementById("detalle-descripcion").innerHTML = item.descripcion.replace(/\n/g, '<br>');
+    document.getElementById("detalle-precio").textContent = `$${item.precio.toFixed(2)} USD`;
     document.getElementById("detalle-imagen").src = item.imagen;
+    document.getElementById("detalle-imagen").onerror = () => { this.src = 'img/default.jpg'; };
+
+    // Cargar especificaciones
+    const specsBody = document.getElementById("especificaciones-body");
+    if (item.especificaciones) {
+      const ul = document.createElement("ul");
+      ul.className = "especificaciones-lista";
+      item.especificaciones.forEach(spec => {
+        const li = document.createElement("li");
+        const parts = spec.split(": ");
+        li.innerHTML = `<strong>${parts[0]}:</strong> ${parts[1] || ''}`;
+        ul.appendChild(li);
+      });
+      specsBody.appendChild(ul);
+    }
+  } else {
+    document.querySelector(".detalle-info").innerHTML = "<p>Servicio no encontrado.</p>";
   }
 
+  // Carrito
   const carrito = [];
   const btnAgregar = document.getElementById("agregar-carrito");
   const divCarrito = document.getElementById("carrito");
@@ -204,30 +396,32 @@
   const btnPagar = document.getElementById("pagar");
   const totalSpan = document.getElementById("total");
 
-  btnAgregar.addEventListener("click", (e) => {
-    e.preventDefault();
-    carrito.push({ ...item, cantidad: 1 });
-    divCarrito.style.display = "block";
-    renderCarrito();
-  });
+  if (btnAgregar && item) {
+    btnAgregar.addEventListener("click", (e) => {
+      e.preventDefault();
+      const existe = carrito.find(p => p.titulo === item.titulo);
+      if (existe) {
+        existe.cantidad += 1;
+      } else {
+        carrito.push({ ...item, cantidad: 1 });
+      }
+      divCarrito.style.display = "block";
+      renderCarrito();
+    });
+  }
 
   btnComprar.addEventListener("click", () => {
+    if (carrito.length === 0) {
+      alert("Agrega al menos un producto al carrito.");
+      return;
+    }
     btnPagar.style.display = "inline-block";
-    alert("Revisa tu carrito antes de pagar.");
   });
 
   btnPagar.addEventListener("click", () => {
-    if (carrito.length === 0) {
-      alert("Tu carrito está vacío.");
-      return;
-    }
-
-    const producto = encodeURIComponent(carrito[0].titulo);
-    const precio = carrito[0].precio.toFixed(2);
-    const cantidad = carrito[0].cantidad;
-
-    // Redirige a la página de pago con los datos del producto o servicio
-    window.location.href = `pago.html?producto=${producto}&precio=${precio}&cantidad=${cantidad}`;
+    const total = carrito.reduce((sum, p) => sum + p.precio * p.cantidad, 0).toFixed(2);
+    const productos = encodeURIComponent(JSON.stringify(carrito.map(p => ({titulo: p.titulo, cantidad: p.cantidad, precio: p.precio}))));
+    window.location.href = `pago.html?productos=${productos}&total=${total}`;
   });
 
   function renderCarrito() {
@@ -236,7 +430,7 @@
     carrito.forEach((producto, index) => {
       total += producto.precio * producto.cantidad;
       const div = document.createElement("div");
-      div.classList.add("carrito-item");
+      div.className = "carrito-item";
       div.innerHTML = `
         <div>
           <strong>${producto.titulo}</strong><br>
@@ -245,28 +439,42 @@
         <div>
           Cantidad:
           <input type="number" min="1" value="${producto.cantidad}" class="cantidad-input" onchange="actualizarCantidad(${index}, this.value)">
-          <button class="btn" style="background-color:#dc3545; margin-left:10px;" onclick="eliminarItem(${index})">Eliminar</button>
+          <button class="btn btn-eliminar" onclick="eliminarItem(${index})">Eliminar</button>
         </div>
       `;
       listaCarrito.appendChild(div);
     });
-    totalSpan.textContent = carrito.length
-      ? `Total: $${total.toFixed(2)} USD`
-      : "";
+    totalSpan.textContent = carrito.length ? `Total: $${total.toFixed(2)} USD` : "";
+    if (carrito.length === 0) divCarrito.style.display = "none";
   }
 
   window.eliminarItem = (index) => {
     carrito.splice(index, 1);
     renderCarrito();
-    if (carrito.length === 0) divCarrito.style.display = "none";
   };
 
   window.actualizarCantidad = (index, cantidad) => {
-    carrito[index].cantidad = parseInt(cantidad);
-    renderCarrito();
+    const cant = parseInt(cantidad);
+    if (cant < 1) {
+      eliminarItem(index);
+    } else {
+      carrito[index].cantidad = cant;
+      renderCarrito();
+    }
+  };
+
+  // Acordeón
+  window.toggleAccordion = (header) => {
+    const body = header.nextElementSibling;
+    const isActive = body.classList.contains("active");
+    document.querySelectorAll(".accordion-body").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".accordion-header").forEach(h => h.classList.remove("active"));
+    if (!isActive) {
+      body.classList.add("active");
+      header.classList.add("active");
+    }
   };
 </script>
-
 
 </body>
 </html>
