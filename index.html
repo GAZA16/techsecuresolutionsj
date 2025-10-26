@@ -67,9 +67,9 @@
 
 <!-- ===== CHAT BOT ===== -->
 <div class="chatbot-container" id="chatbot">
-  <div class="chat-header">
-    💬 TechSecure Solutions ChatBot
-    <span class="chat-close" id="chat-close">✖</span>
+<div class="chat-header">
+  💬TechSecure Solutions
+  <span class="chat-close" id="chat-close"><strong>✖</strong></span>
   </div>
   <div class="chat-body" id="chat-body"></div>
   <div class="chat-input">
@@ -256,18 +256,21 @@ function generarRespuesta(texto) {
     position: relative;
   }
 
-  .chat-close {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #fff;
-  }
+.chat-close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%); /* Centrar verticalmente */
+  cursor: pointer;
+  font-size: 20px;
+  color: #ff0000; /* Rojo permanente */
+  font-weight: bold;
+}
 
-  .chat-close:hover {
-    color: #ff4d4d;
-  }
+.chat-close:hover {
+  color: #cc0000; /* Rojo más oscuro al pasar mouse */
+}
+
 
   .chat-body {
     flex: 1;
