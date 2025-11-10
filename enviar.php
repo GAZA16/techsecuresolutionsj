@@ -1,6 +1,6 @@
 <?php
 // ====== CONFIGURA AQUÍ TU CORREO ======
-$destino = "techsecuresolutions25@gmail.com"; // 📩 Cámbialo por tu correo real
+$destino = "techsecuresolutions25@gmail.com"; 
 
 // ====== RECIBE LOS DATOS DEL FORMULARIO ======
 $producto = $_POST["producto"];
