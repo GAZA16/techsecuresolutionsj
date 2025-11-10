@@ -132,88 +132,100 @@
 
   <section>
     <h2>Formulario de Solicitud</h2>
-    <form action="https://formspree.io/f/xzzjowvk" method="POST">
+<form action="https://formspree.io/f/xzzjowvk" method="POST">
+  <!-- Campos principales -->
+  <label for="producto">Producto o servicio</label>
+  <input type="text" id="producto" name="producto" readonly required>
 
-      <label for="producto">Producto o servicio</label>
-      <input type="text" id="producto" name="producto" readonly>
+  <label for="precio">Precio estimado (USD)</label>
+  <input type="text" id="precio" name="precio" readonly required>
 
-      <label for="precio">Precio estimado (USD)</label>
-      <input type="text" id="precio" name="precio" readonly>
+  <label for="nombre">Nombre completo</label>
+  <input type="text" id="nombre" name="nombre" required>
 
-      <label for="nombre">Nombre completo</label>
-      <input type="text" id="nombre" name="nombre" required>
+  <label for="correo">Correo electrónico</label>
+  <input type="email" id="correo" name="_replyto" required>
 
-      <label for="correo">Correo electrónico</label>
-      <input type="email" id="correo" name="correo" required>
+  <label for="telefono">Teléfono</label>
+  <input type="tel" id="telefono" name="telefono" required>
 
-      <label for="telefono">Teléfono</label>
-      <input type="tel" id="telefono" name="telefono" required>
+  <label for="detalle">Detalles adicionales</label>
+  <textarea id="detalle" name="mensaje" rows="4" placeholder="Describe tus necesidades..." required></textarea>
 
-      <label for="detalle">Detalles adicionales</label>
-      <textarea id="detalle" name="detalle" rows="4" placeholder="Describe brevemente tus necesidades..."></textarea>
-
-      <!-- Configuración de Formspree -->
-      <input type="hidden" name="_next" value="https://gaza16.github.io/techsecuresolutions/gracias.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="Nueva solicitud de servicio - TechSecure Solutions">
-
-      <button type="submit">Enviar solicitud</button>
-    </form>
+  <!-- CONFIGURACIÓN FORMSPREE OBLIGATORIA -->
+  <input type="hidden" name="_subject" value="Nueva Solicitud - {{producto}}">
+  <input type="hidden" name="_next" value="https://gaza16.github.io/techsecuresolutions/gracias.html">
+  <input type="hidden" name="_captcha" value="false">
+  
+  <button type="submit">🚀 Enviar Solicitud</button>
+</form>
   </section>
 
   <script>
-    // ===== Capturar parámetros desde la URL =====
-    const params = new URLSearchParams(window.location.search);
-    const servicio = params.get("servicio");
+  // ===== Capturar parámetros desde la URL =====
+  const params = new URLSearchParams(window.location.search);
+  const servicio = params.get("servicio");
 
-    // ===== Catálogo con nombres y precios =====
-    const serviciosCatalogo = {
-      "asistencia-remota": {
-        producto: "Asistencia Remota por Incidencia",
-        precio: "25 USD / Sesión"
-      },
-      "plan-mensual": {
-        producto: "Plan Soporte Preventivo Mensual",
-        precio: "49 USD / Mes"
-      },
-      "mantenimiento": {
-        producto: "Mantenimiento Preventivo Básico",
-        precio: "25 USD"
-      },
-      "reparacion": {
-        producto: "Diagnóstico y Reparación de Hardware",
-        precio: "30 USD"
-      },
-      "venta-laptop-pro": {
-        producto: "Laptop Gaming Lenovo LOQ Ryzen 5",
-        precio: "1100 USD"
-      },
-      "venta-mouse": {
-        producto: "Mouse Gaming Inalámbrico Aerox 9",
-        precio: "85 USD"
-      },
-      "venta-camara-eco": {
-        producto: "Cámara Económica Dahua 1080p Domo",
-        precio: "45 USD"
-      },
-      "venta-camara-pro": {
-        producto: "Cámara HIKVISION Profesional 4MP",
-        precio: "194.95 USD"
-      }
-    };
-
-    // ===== Llenar automáticamente los campos =====
-    if (servicio && serviciosCatalogo[servicio]) {
-      document.getElementById("producto").value = serviciosCatalogo[servicio].producto;
-      document.getElementById("precio").value = serviciosCatalogo[servicio].precio;
-    } else {
-      // Si viene con parámetros ?producto=...&precio=...
-      const producto = params.get("producto") || "";
-      const precio = params.get("precio") || "";
-      document.getElementById("producto").value = decodeURIComponent(producto);
-      document.getElementById("precio").value = decodeURIComponent(precio);
+  // ===== Catálogo con nombres y precios =====
+  const serviciosCatalogo = {
+    "asistencia-remota": {
+      producto: "Asistencia Remota por Incidencia",
+      precio: "25 USD / Sesión"
+    },
+    "plan-mensual": {
+      producto: "Plan Soporte Preventivo Mensual",
+      precio: "49 USD / Mes"
+    },
+    "mantenimiento": {
+      producto: "Mantenimiento Preventivo Básico",
+      precio: "25 USD"
+    },
+    "reparacion": {
+      producto: "Diagnóstico y Reparación de Hardware",
+      precio: "45 USD"
+    },
+    "venta-laptop-pro": {
+      producto: "Laptop Gaming Lenovo LOQ Ryzen 5",
+      precio: "1100 USD"
+    },
+    "venta-mouse": {
+      producto: "Mouse Gaming Inalámbrico Aerox 9",
+      precio: "85 USD"
+    },
+    "venta-camara-eco": {
+      producto: "Cámara Económica Dahua 1080p Domo",
+      precio: "45 USD"
+    },
+    "venta-camara-pro": {
+      producto: "Cámara HIKVISION Profesional 4MP",
+      precio: "194.95 USD"
     }
-  </script>
+  };
+
+  // ===== Llenar automáticamente los campos =====
+  const productoInput = document.getElementById("producto");
+  const precioInput = document.getElementById("precio");
+
+  if (servicio && serviciosCatalogo[servicio]) {
+    console.log(`Servicio encontrado: ${servicio}`);
+    productoInput.value = serviciosCatalogo[servicio].producto;
+    precioInput.value = serviciosCatalogo[servicio].precio;
+  } else {
+    console.warn(`Servicio no encontrado: ${servicio}`);
+    const producto = params.get("producto") || "Servicio no especificado";
+    const precio = params.get("precio") || "No disponible";
+    productoInput.value = decodeURIComponent(producto);
+    precioInput.value = decodeURIComponent(precio);
+  }
+
+  // Validar que los campos no estén vacíos antes de enviar
+  document.querySelector("form").addEventListener("submit", function (event) {
+    if (!productoInput.value || !precioInput.value) {
+      event.preventDefault();
+      alert("Error: Los campos de producto y precio no pueden estar vacíos.");
+    }
+  });
+</script>
 
   <footer>
     <p>© 2025 TechSecure Solutions — Todos los derechos reservados.</p>
